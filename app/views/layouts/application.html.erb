@@ -9,24 +9,9 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-    <h5 class="my-0 mr-md-auto font-weight-normal">草野球名鑑</h5>
-    <nav class="my-2 my-md-0 mr-md-3">
-      <ul>
-        <% if user_signed_in? %>
-          <li>ユーザー</li>
-          <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-        <% elsif admin_signed_in? %>
-          <li>管理者</li>
-          <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
-        <% else %>
-          <li class="p-2 text-dark">初めての方</li>
-          <li class="btn btn-outline-primary"><%= link_to "新規登録", new_user_registration_path %></li>
-          <li class="btn btn-outline-primary"><%= link_to "ログイン", new_user_session_path %></li>
-        <% end %>
-      </ul>
-    </nav>
-  </div>
+  <header>
+    <%= render 'layouts/header' %>
+  </header>
 
   <body>
     <%= yield %>
