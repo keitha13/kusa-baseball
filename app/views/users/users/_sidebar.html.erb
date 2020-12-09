@@ -1,0 +1,15 @@
+
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+  <div class="sidebar-fixed">
+    <h5 class="my-0 mr-md-auto font-weight-normal">草野球名鑑</h5>
+    <% if user_signed_in? %>
+    <ul class="nav flex-column">
+      <li class="nav-item">ユーザー</li>
+      <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link active" %></li>
+    <% elsif admin_signed_in? %>
+      <li>管理者</li>
+      <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link active"  %></li>
+    </ul>
+    <% end %>
+  </div>
+</nav>

@@ -1,11 +1,22 @@
+<header>
+  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal">草野球名鑑</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+      <a class="p-2 text-dark" href="#">初めての方</a>
+      <%= link_to "新規登録", new_user_registration_path, class: "btn btn-outline-warning my-2" %>
+      <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary my-2" %>
+    </nav>
+  </div>
+</header>
+
 <main role="main">
   <section class="jumbotron text-center">
     <div class="container">
-      <h2 class="jumbotron-heading">集まれ、草野球選手</h1>
+      <h1 class="jumbotron-heading">集まれ、草野球プレーヤー</h1>
       <p class="lead text-muted">活躍を自慢しよう！！</p>
-      <p>
-        <%= link_to "新規登録", new_user_registration_path, class: "btn btn-primary my-2" %>
-        <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary my-2" %>
+      <p class="">
+        <%= link_to "新規登録", new_user_registration_path, class: "btn btn-outline-warning my-2" %>
+        <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary my-2" %>
       </p>
     </div>
   </section>
