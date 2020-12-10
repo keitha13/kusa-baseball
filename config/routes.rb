@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         put "out"
       end
     end
+    resources :posts
   end
 
 end

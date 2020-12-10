@@ -1,0 +1,63 @@
+<%= attachment_image_tag(@post.user, :profile_image, fallback: "no_image.jpg", size: "50x50") %>
+<%= @post.user.name %>
+<%= @post.created_at.to_s(:datetime_jp) %>
+<%= @post.body %>
+<%= attachment_image_tag @post, :post_image, size: "100x100" %>
+
+<h3>打者成績</h3>
+    <table class="table table-bordered table-condensed">
+      <tr>
+        <th>打数</th>
+        <th>単打</th>
+        <th>二塁打</th>
+        <th>三塁打</th>
+        <th>本塁打</th>
+        <th>打点</th>
+        <th>得点</th>
+        <th>四死球</th>
+      </tr>
+      <tr>
+        <td><%= @post.AB %></td>
+        <td><%= @post.single %></td>
+        <td><%= @post.double %></td>
+        <td><%= @post.triple %></td>
+        <td><%= @post.HR %></td>
+        <td><%= @post.RBI %></td>
+        <td><%= @post.run %></td>
+        <td><%= @post.BB_HBP %></td>
+      </tr>
+    </table>
+    <h3>投手成績</h3>
+    <table class="table table-bordered table-condensed">
+      <tr>
+        <th>投球回</th>
+        <th>被安打</th>
+        <th>失点</th>
+        <th>奪三振</th>
+        <th>与四死球</th>
+      </tr>
+      <tr>
+        <td><%= @post.inning %></td>
+        <td><%= @post.hit_allowed %></td>
+        <td><%= @post.run_allowed %></td>
+        <td><%= @post.SO %></td>
+        <td><%= @post.BB_HBP_allowed %></td>
+      </tr>
+    </table>
+    <h3>チーム成績</h3>
+    <table class="table table-bordered table-condensed">
+      <tr>
+        <th>対戦チーム</th>
+        <th>自チーム得点</th>
+        <th>相手チーム得点</th>
+        <th>試合日</th>
+        <th>勝敗</th>
+      </tr>
+      <tr>
+        <td><%= @post.team_against %></td>
+        <td><%= @post.score_my_team %></td>
+        <td><%= @post.score_team_against %></td>
+        <td><%= @post.date.strftime('%Y/%m/%d') %></td>
+        <td></td>
+      </tr>
+    </table>

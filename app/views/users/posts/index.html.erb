@@ -1,0 +1,7 @@
+<% @posts.each do |post| %>
+  <%= attachment_image_tag(post.user, :profile_image, fallback: "no-image.jpg", size: "50x50") %>
+  <%= post.user.name %>
+  <%= post.created_at.to_s(:datetime_jp) %>
+  <%= post.body %>
+  <%= link_to "詳細", post_path(post), class: "btn" %>
+<% end %>
