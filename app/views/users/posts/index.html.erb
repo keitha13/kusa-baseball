@@ -1,7 +1,27 @@
-<% @posts.each do |post| %>
-  <%= attachment_image_tag(post.user, :profile_image, fallback: "no-image.jpg", size: "50x50") %>
-  <%= post.user.name %>
-  <%= post.created_at.to_s(:datetime_jp) %>
-  <%= post.body %>
-  <%= link_to "詳細", post_path(post), class: "btn" %>
-<% end %>
+<div class="container-fluid">
+  <div class="row">
+
+    <%= render "users/users/sidebar", user: @user %>
+
+    <div class="col-md-6 offset-2 mt-5" id="main">
+      <% @posts.each do |post| %>
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <%= attachment_image_tag(post.user, :profile_image, fallback: "no-image.jpg", size: "50x50") %>
+              <h5><%= post.user.name %></h5>
+            </div>
+            <p class="card-text">
+              <small class="text-muted"><%= post.created_at.strftime('%Y/%m/%-d/%R') %></small>
+            </p>
+            <p class="card-text">
+              <%= post.body %>
+            </p>
+            <%= link_to "詳細", post_path(post), class: "btn" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>

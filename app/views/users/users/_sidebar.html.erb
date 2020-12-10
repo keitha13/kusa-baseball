@@ -1,14 +1,18 @@
 
-<nav class="col-md-3 d-none d-md-block bg-light sidebar">
-  <div class="sidebar-fixed">
-    <h5 class="my-0 mr-md-auto font-weight-normal">草野球名鑑</h5>
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+  <div class="sticky-top">
+    <h5 class="my-4 font-weight-bold text-center">草野球名鑑</h5>
     <% if user_signed_in? %>
     <ul class="nav flex-column">
-      <li class="nav-item">ユーザー</li>
-      <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link active" %></li>
+      <li class="nav-item mx-auto mt-4"><%= attachment_image_tag(user, :profile_image, fallback: "no_image.jpg", size: "50x50") %></li>
+      <li class="nav-item mx-auto mb-5"><%= user.name %></li>
+      <li class="nav-item mx-auto my-2"><%= link_to "ホーム", posts_path, class: "btn btn-link" %></li>
+      <li class="nav-item mx-auto my-2"><%= link_to "プロフィール", user_path(user), class: "btn btn-link" %></li>
+      <li class="nav-item mx-auto my-2"><%= link_to "新規投稿", new_post_path, class: "btn btn-success" %></li>
+      <li class="nav-item mx-auto my-2"><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-link" %></li>
     <% elsif admin_signed_in? %>
       <li>管理者</li>
-      <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "nav-link active"  %></li>
+      <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn btn-link" %></li>
     </ul>
     <% end %>
   </div>

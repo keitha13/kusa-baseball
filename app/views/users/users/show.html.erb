@@ -1,45 +1,37 @@
-<div class="container">
 
+<div class="container-fluid">
   <div class="row">
-    <h3 class"mypage">マイページ</h3>
-       <p>
-         <strong class="info">登録情報</strong>
-       </p>
-  </div>
+    <%= render "users/users/sidebar", user: @user %>
 
-  <div class="row">
-    <div class="mypage_info col-xs-6">
-      <table class="table table-bordered table-condensed">
-        <tr>
-          <th>プロフィール画像</th>
-          <td><%= attachment_image_tag(@user, :profile_image, fallback: "no-image.png", size: "100x100") %></td>
-        </tr>
-        <tr>
-          <th>氏名</th>
-          <td div class="col-xs-8"><%= @user.name %></td>
-        </tr>
-        <tr>
-          <th>誕生日</th>
-          <td div class="col-xs-8"><%= @user.birthday %></td>
-        </tr>
-        <tr>
-          <th>所属チーム</th>
-          <td div class="col-xs-8"><%= @user.team %></td>
-        </tr>
-        <tr>
-          <th>活動地域</th>
-          <td div class="col-xs-8"><%= @user.active_area %></td>
-        </tr>
-        <tr>
-          <th>メールアドレス</th>
-          <td div class="col-xs-8"><%= @user.email %></td>
-        </tr>
-      </table>
+    <div class="col-md-8 offset-1 mt-5" id="main">
+      <div class="card mb-4 border-0 ">
+        <div class="card-body">
+          <div class="card-text text-center">
+            <%= attachment_image_tag(@user, :profile_image, fallback: "no-image.png", size: "150x150") %>
+          </div>
+          <h3 class="card-title text-center"><%= @user.name %></h3>
+          <p class="card-text text-center">
+            <small class="text-muted"><%= @user.created_at.strftime('%Y/%m/%-d') %>に選手登録</small>
+          </p>
+          <p class="card-text text-center">
+            <%= safe_join(@user.introduction.split("\n"),tag(:br)) %>
+          </p>
+        </div>
+      </div>
+      <div class="card border-0 col-md-6 offset-3">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-center">誕生日：<%= @user.birthday %></li>
+          <li class="list-group-item text-center">所属チーム：<%= @user.team %></li>
+          <li class="list-group-item text-center">活動地域：<%= @user.active_area %></li>
+          <% if @user.id == current_user.id %>
+            <li class="list-group-item text-center">Email：<%= @user.email %></li>
+          <% end %>
+        </ul>
+        <% if @user.id == current_user.id %>
+          <p><%= link_to "編集する", edit_user_path, class: "btn btn-primary col-md-12 mt-5" %></p>
+          <p><%= link_to "退会する", quit_users_path, class: "btn btn-danger col-md-12 my-3" %></p>
+        <% end %>
+      </div>
     </div>
-    <p><%= link_to "編集する", edit_user_path, class: "btn btn-primary" %></p>
-    <% if user_signed_in? && @user.id == current_user.id %>
-      <%= link_to "退会する", quit_users_path, class: "btn btn-danger" %>
-    <% end %>
   </div>
-
 </div>
