@@ -8,10 +8,10 @@
         <div class="card mb-4">
           <div class="card-body">
             <%= link_to user_path(post.user) do %>
-            <div class="row align-items-center">
-              <%= attachment_image_tag(post.user, :profile_image, fallback: "no-image.jpg", size: "50x50") %>
-              <h5><%= post.user.name %></h5>
-            </div>
+              <div class="row align-items-center">
+                <%= attachment_image_tag(post.user, :profile_image, fallback: "no-image.jpg", size: "50x50") %>
+                <h5><%= post.user.name %></h5>
+              </div>
             <% end %>
             <p class="card-text">
               <small class="text-muted"><%= post.created_at.strftime('%Y/%m/%-d/%R') %></small>
@@ -20,8 +20,23 @@
               <%= simple_format(post.body) %>
             </p>
             <div class="row align-items-center">
-              <span class="far fa-comment"><%= post.post_comments.count %></span>
-              <span><%= link_to "詳細", post_path(post), class: "btn" %></span>
+              <span class="far fa-comment col-4 text-center"><%= post.post_comments.count %></span>
+              <% if post.favorited_by?(current_user) %>
+                <span class="col-4 text-center">
+                  <%= link_to post_favorites_path(post), method: :delete do %>
+                    <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
+                    <%= post.favorites.count %>
+                  <% end %>
+                </span>
+                <% else %>
+                <span class="col-4 text-center">
+                  <%= link_to post_favorites_path(post), method: :post do %>
+                    <i class="far fa-heart" aria-hidden="true"></i>
+                    <%= post.favorites.count %>
+                  <% end %>
+                </span>
+              <% end %>
+              <span class="col-4 text-center"><%= link_to "詳細", post_path(post), class: "btn btn-outline-primary" %></span>
             </div>
           </div>
         </div>
