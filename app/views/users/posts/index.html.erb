@@ -19,7 +19,10 @@
             <p class="card-text">
               <%= simple_format(post.body) %>
             </p>
-            <%= link_to "詳細", post_path(post), class: "btn" %>
+            <div class="row align-items-center">
+              <span class="far fa-comment"><%= post.post_comments.count %></span>
+              <span><%= link_to "詳細", post_path(post), class: "btn" %></span>
+            </div>
           </div>
         </div>
       <% end %>

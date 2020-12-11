@@ -4,6 +4,7 @@
     <%= render "users/users/sidebar" %>
 
     <div class="col-md-8 offset-1 mt-5" id="main">
+
       <div class="card mb-4">
         <div class="card-body">
           <div class="row align-items-center">
@@ -16,9 +17,11 @@
           <p class="card-text">
             <%= @post.body %>
           </p>
+          <div class="row align-items-center">
+            <span class="far fa-comment"><%= @post.post_comments.count %></span>
+          </div>
         </div>
       </div>
-
 
       <h3>打者成績</h3>
           <table class="table table-bordered table-condensed">
@@ -86,7 +89,25 @@
           <% if @post.user == current_user %>
       			<%= link_to "削除する", post_path(@post), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn col-md-12 btn-danger my-2" %>
       		<% end %>
-		</div>
 
+          <!--コメント入力フォーム-->
+      		<%= form_with(model:[@post, @post_comment], local: true) do |f| %>
+      		  <%= f.text_area :comment, placeholder: "コメントを記入" %>
+      		  <%= f.submit "送信する", class: "btn" %>
+      		<% end %>
+
+          <!--コメント一覧-->
+      		<% @post.post_comments.each do |post_comment| %>
+      		  <%= attachment_image_tag(post_comment.user, :profile_image, fallback: "no_image.jpg", size: "50x50") %>
+      		  <%= post_comment.user.name %>
+      		  <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+      		  <%= post_comment.comment %>
+      		  <% if post_comment.user == current_user %>
+            <div>
+              <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, class: "btn btn-danger" %>
+            </div>
+          <% end %>
+      		<% end %>
+		</div>
   </div>
 </div>

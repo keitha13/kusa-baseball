@@ -20,7 +20,9 @@ Rails.application.routes.draw do
         put "out"
       end
     end
-    resources :posts
+    resources :posts do
+      resources :post_comments, only: [:create, :destroy]
+    end
   end
 
 end
