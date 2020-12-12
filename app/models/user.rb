@@ -7,6 +7,10 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :following_relationships,foreign_key: "follower_id", class_name: "FollowRelationship",  dependent: :destroy
+  has_many :followings, through: :following_relationships
+  has_many :follower_relationships,foreign_key: "following_id",class_name: "FollowRelationship", dependent: :destroy
+  has_many :followers, through: :follower_relationships
   attachment :profile_image, destroy: false
 
   enum active_areas: {
@@ -17,10 +21,27 @@ class User < ApplicationRecord
     滋賀県:25,京都府:26,大阪府:27,兵庫県:28,奈良県:29,和歌山県:30,
     鳥取県:31,島根県:32,岡山県:33,広島県:34,山口県:35,
     徳島県:36,香川県:37,愛媛県:38,高知県:39,
-    福岡県:40,佐賀県:41,長崎県:42,熊本県:43,大分県:44,宮崎県:45,鹿児島県:46,沖縄県:47
+    福岡県:40,佐賀県:41,長崎県:42,熊本県:43,大分県:44,宮崎県:45,鹿児島県:46,沖縄県:47,
+    海外:48
   }
 
+  # 退会用
   def active_for_authentication?
     super && (self.is_active == true)
   end
+
+  # 以下、フォロー機能
+  def following?(other_user)
+    self.followings.include?(other_user)
+  end
+
+  def follow(other_user)
+    self.following_relationships.create(following_id: other_user.id)
+  end
+
+  def unfollow(other_user)
+    self.following_relationships.find_by(following_id: other_user.id).destroy
+  end
+  # 以上、ここまで
+  
 end

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   devise_for :admins, controllers: {
   sessions: 'admins/sessions'
   }
-  
+
   get 'homes/top'
 
   scope module: :users do
@@ -20,10 +20,13 @@ Rails.application.routes.draw do
         put "out"
       end
     end
+
     resources :posts do
       resource :favorites, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]
     end
+
+    resources :follow_relationships, only: [:create, :destroy]
   end
 
 end

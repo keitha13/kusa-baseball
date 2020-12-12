@@ -19,6 +19,15 @@
         </div>
       </div>
       <div class="card border-0 col-md-6 offset-3">
+        <% if user_signed_in? && @user != current_user %>
+          <div id="follow_form">
+            <% if current_user.following?(@user) %>
+              <%= render "users/follow_relationships/unfollow" %>
+            <% else %>
+              <%= render "users/follow_relationships/follow" %>
+            <% end %>
+          </div>
+        <% end %>
         <ul class="list-group list-group-flush">
           <li class="list-group-item text-center">誕生日：<%= @user.birthday %></li>
           <li class="list-group-item text-center">所属チーム：<%= @user.team %></li>
