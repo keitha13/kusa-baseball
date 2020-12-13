@@ -30,14 +30,21 @@ class Users::SessionsController < Devise::SessionsController
   protected
 
   def reject_user
+    if params[:user][:email].blank?
+      flash[:error] = "メールアドレスを入力して下さい。"
+      return
+    end
+    if params[:user][:password].blank?
+      flash[:error] = "パスワードを入力して下さい。"
+      return
+    end
     @user = User.find_by(email: params[:user][:email].downcase)
-    if @user
-      if (@user.valid_password?(params[:user][:password]) && (@user.active_for_authentication? == true))
-        flash[:error] = "退会済みです。"
-        redirect_to new_user_session_path
-      end
-    else
-      flash[:error] = "必須項目を入力してください。"
+    if  @user && @user.valid_password?(params[:user][:password]) && @user.active_for_authentication? == false
+      flash[:error] = "退会済みです。"
+      redirect_to new_user_session_path
+    elsif @user.nil?
+      flash[:error] = "ユーザーが存在しません。"
+      redirect_to new_user_session_path
     end
   end
 end

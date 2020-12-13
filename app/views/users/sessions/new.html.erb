@@ -1,7 +1,6 @@
 
 
 
-<form class="form-signin">
   <h1 class="h3 mb-3 font-wight-normal">ログインする</h1>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "メールアドレス" %>
@@ -12,7 +11,6 @@
   </div>
     <%= f.submit "ログイン", class: "btn btn-lg btn-primary btn-block" %>
   <% end %>
-</form>
 <%= render "users/shared/links" %>
 <div class="error">
   <h3><%= flash[:error] %></h3>
