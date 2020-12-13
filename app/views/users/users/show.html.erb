@@ -1,0 +1,46 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <%= render "users/users/sidebar", user: @user %>
+
+    <div class="col-md-8 offset-1 mt-5" id="main">
+      <div class="card mb-4 border-0 ">
+        <div class="card-body text-center">
+          <div class="card-text">
+            <%= attachment_image_tag(@user, :profile_image, fallback: "no-image.png", size: "150x150") %>
+          </div>
+          <h3 class="card-title"><%= @user.name %></h3>
+          <p class="card-text">
+            <small class="text-muted"><%= @user.created_at.strftime('%Y/%m/%-d') %>に選手登録</small>
+          </p>
+          <p class="card-text">
+            <%= simple_format(@user.introduction) %>
+          </p>
+        </div>
+      </div>
+      <div class="card border-0 col-md-6 offset-3">
+        <% if user_signed_in? && @user != current_user %>
+          <div id="follow_form">
+            <% if current_user.following?(@user) %>
+              <%= render "users/follow_relationships/unfollow" %>
+            <% else %>
+              <%= render "users/follow_relationships/follow" %>
+            <% end %>
+          </div>
+        <% end %>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-center">誕生日：<%= @user.birthday %></li>
+          <li class="list-group-item text-center">所属チーム：<%= @user.team %></li>
+          <li class="list-group-item text-center">活動地域：<%= @user.active_area %></li>
+          <% if @user.id == current_user.id %>
+            <li class="list-group-item text-center">Email：<%= @user.email %></li>
+          <% end %>
+        </ul>
+        <% if @user.id == current_user.id %>
+          <p><%= link_to "編集する", edit_user_path, class: "btn btn-primary col-md-12 mt-5" %></p>
+          <p><%= link_to "退会する", quit_users_path, class: "btn btn-danger col-md-12 my-3" %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

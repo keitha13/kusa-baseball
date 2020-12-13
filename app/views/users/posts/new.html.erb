@@ -1,0 +1,73 @@
+<div class="container">
+  <h1>新規投稿</h1>
+  <%= form_with model:@post, local: true do |f| %>
+
+    <%= f.label :コメント %><br>
+    <%= f.text_area :body, class: "body" %>
+    <br>
+    <%= f.label :投稿画像 %><br>
+    <%= f.attachment_field :post_image, class: "post_image" %>
+    <br>
+    <%= f.label :YoutubeのURL %><br>
+    <%= f.text_field :youtube_url, class: "youtube_url" %>
+    <br>
+    <h3>打者成績登録</h3>
+    <table class="table table-bordered table-condensed">
+      <tr>
+        <th>打数</th>
+        <th>単打</th>
+        <th>二塁打</th>
+        <th>三塁打</th>
+        <th>本塁打</th>
+        <th>打点</th>
+        <th>得点</th>
+        <th>四死球</th>
+      </tr>
+      <tr>
+        <td><%= f.number_field :AB, class: "AB", min: 0 %></td>
+        <td><%= f.number_field :single, class: "single", min: 0 %></td>
+        <td><%= f.number_field :double, class: "double", min: 0 %></td>
+        <td><%= f.number_field :triple, class: "triple", min: 0 %></td>
+        <td><%= f.number_field :HR, class: "HR", min: 0 %></td>
+        <td><%= f.number_field :RBI, class: "RBI", min: 0 %></td>
+        <td><%= f.number_field :run, class: "run", min: 0 %></td>
+        <td><%= f.number_field :BB_HBP, class: "BB_HBP", min: 0 %></td>
+      </tr>
+    </table>
+    <h3>投手成績登録</h3>
+    <table class="table table-bordered table-condensed">
+      <tr>
+        <th>投球回</th>
+        <th>被安打</th>
+        <th>失点</th>
+        <th>奪三振</th>
+        <th>与四死球</th>
+      </tr>
+      <tr>
+        <td><%= f.text_field :inning, class: "inning" %></td>
+        <td><%= f.number_field :hit_allowed, class: "hit_allowed", min: 0 %></td>
+        <td><%= f.number_field :run_allowed, class: "run_allowed", min: 0 %></td>
+        <td><%= f.number_field :SO, class: "SO", min: 0 %></td>
+        <td><%= f.number_field :BB_HBP_allowed, class: "BB_HBP_allowed", min: 0 %></td>
+      </tr>
+    </table>
+    <h3>チーム成績登録</h3>
+    <table class="table table-bordered table-condensed">
+      <tr>
+        <th>対戦チーム</th>
+        <th>自チーム得点</th>
+        <th>相手チーム得点</th>
+        <th>試合日</th>
+        <th>勝敗</th>
+      </tr>
+      <tr>
+        <td><%= f.text_field :team_against, class: "team_against" %></td>
+        <td><%= f.number_field :score_my_team, class: "score_my_team", min: 0 %></td>
+        <td><%= f.number_field :score_team_against, class: "score_team_against", min: 0 %></td>
+        <td><%= f.date_select :date, class: "date" %></td>
+        <td></td>
+      </tr>
+    </table>
+    <%= f.submit("投稿する", class: "btn btn-primary center-block")%>
+  <% end %>
+</div>

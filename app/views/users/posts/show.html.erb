@@ -1,0 +1,130 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <%= render "users/users/sidebar" %>
+
+    <div class="col-md-8 offset-1 mt-5" id="main">
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <%= link_to user_path(@post.user) do %>
+            <div class="row align-items-center">
+              <%= attachment_image_tag(@post.user, :profile_image, fallback: "no_image.jpg", size: "70x70") %>
+              <h5><%= @post.user.name %></h5>
+            </div>
+          <% end %>
+          <p class="card-text">
+            <small class="text-muted"><%= @post.created_at.strftime('%Y/%m/%-d/%R') %></small>
+          </p>
+          <p class="card-text">
+            <%= @post.body %>
+          </p>
+          <div class="row align-items-center">
+            <span class="far fa-comment col-4 text-center"><%= @post.post_comments.count %></span>
+            <% if @post.favorited_by?(current_user) %>
+              <span class="col-4 text-center">
+                <%= link_to post_favorites_path(@post), method: :delete do %>
+                  <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i>
+                  <%= @post.favorites.count %>
+                <% end %>
+              </span>
+              <% else %>
+              <span class="col-4 text-center">
+                <%= link_to post_favorites_path(@post), method: :post do %>
+                  <i class="far fa-heart" aria-hidden="true"></i>
+                  <%= @post.favorites.count %>
+                <% end %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <h3>打者成績</h3>
+          <table class="table table-bordered table-condensed">
+            <tr>
+              <th>打数</th>
+              <th>単打</th>
+              <th>二塁打</th>
+              <th>三塁打</th>
+              <th>本塁打</th>
+              <th>打点</th>
+              <th>得点</th>
+              <th>四死球</th>
+            </tr>
+            <tr>
+              <td><%= @post.AB %></td>
+              <td><%= @post.single %></td>
+              <td><%= @post.double %></td>
+              <td><%= @post.triple %></td>
+              <td><%= @post.HR %></td>
+              <td><%= @post.RBI %></td>
+              <td><%= @post.run %></td>
+              <td><%= @post.BB_HBP %></td>
+            </tr>
+          </table>
+          <h3>投手成績</h3>
+          <table class="table table-bordered table-condensed">
+            <tr>
+              <th>投球回</th>
+              <th>被安打</th>
+              <th>失点</th>
+              <th>奪三振</th>
+              <th>与四死球</th>
+            </tr>
+            <tr>
+              <td><%= @post.inning %></td>
+              <td><%= @post.hit_allowed %></td>
+              <td><%= @post.run_allowed %></td>
+              <td><%= @post.SO %></td>
+              <td><%= @post.BB_HBP_allowed %></td>
+            </tr>
+          </table>
+          <h3>チーム成績</h3>
+          <table class="table table-bordered table-condensed">
+            <tr>
+              <th>対戦チーム</th>
+              <th>自チーム得点</th>
+              <th>相手チーム得点</th>
+              <th>試合日</th>
+              <th>勝敗</th>
+            </tr>
+            <tr>
+              <td><%= @post.team_against %></td>
+              <td><%= @post.score_my_team %></td>
+              <td><%= @post.score_team_against %></td>
+              <td><%= @post.date.strftime('%Y/%m/%d') %></td>
+              <td></td>
+            </tr>
+          </table>
+
+          <%= attachment_image_tag @post, :post_image, size: "100x100" %>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @post.youtube_url%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <% if @post.user == current_user %>
+            <%= link_to '編集する', edit_post_path(@post), class: "col-md-12 btn btn-primary my-2" %>
+          <% end %>
+          <% if @post.user == current_user %>
+      			<%= link_to "削除する", post_path(@post), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn col-md-12 btn-danger my-2" %>
+      		<% end %>
+
+          <!--コメント入力フォーム-->
+      		<%= form_with(model:[@post, @post_comment], local: true) do |f| %>
+      		  <%= f.text_area :comment, placeholder: "コメントを記入" %>
+      		  <%= f.submit "送信する", class: "btn" %>
+      		<% end %>
+
+          <!--コメント一覧-->
+      		<% @post.post_comments.each do |post_comment| %>
+      		  <%= attachment_image_tag(post_comment.user, :profile_image, fallback: "no_image.jpg", size: "50x50") %>
+      		  <%= post_comment.user.name %>
+      		  <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+      		  <%= post_comment.comment %>
+      		  <% if post_comment.user == current_user %>
+            <div>
+              <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, class: "btn btn-danger" %>
+            </div>
+          <% end %>
+      		<% end %>
+		</div>
+  </div>
+</div>

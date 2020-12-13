@@ -1,0 +1,53 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  AB: 1
+  single: 1
+  double: 1
+  triple: 1
+  HR: 1
+  RBI: 1
+  run: 1
+  BB/HBP: 1
+  steal: 1
+  inning: 9.99
+  hit_allowed: 1
+  run_allowed: 1
+  SO: 1
+  BB/HBP_allowed: 1
+  body: MyText
+  post_image_id: MyString
+  youtube_url: MyString
+  team_against: MyString
+  score_my_team: 1
+  score_team_against: 1
+  date: 2020-12-07 11:39:40
+  win_lose: MyString
+  status: false
+
+two:
+  user_id: 1
+  AB: 1
+  single: 1
+  double: 1
+  triple: 1
+  HR: 1
+  RBI: 1
+  run: 1
+  BB/HBP: 1
+  steal: 1
+  inning: 9.99
+  hit_allowed: 1
+  run_allowed: 1
+  SO: 1
+  BB/HBP_allowed: 1
+  body: MyText
+  post_image_id: MyString
+  youtube_url: MyString
+  team_against: MyString
+  score_my_team: 1
+  score_team_against: 1
+  date: 2020-12-07 11:39:40
+  win_lose: MyString
+  status: false
