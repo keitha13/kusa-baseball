@@ -22,6 +22,7 @@
         <th>打点</th>
         <th>得点</th>
         <th>四死球</th>
+        <th>盗塁</th>
       </tr>
       <tr>
         <td><%= f.number_field :AB, class: "AB", min: 0 %></td>
@@ -32,6 +33,7 @@
         <td><%= f.number_field :RBI, class: "RBI", min: 0 %></td>
         <td><%= f.number_field :run, class: "run", min: 0 %></td>
         <td><%= f.number_field :BB_HBP, class: "BB_HBP", min: 0 %></td>
+        <td><%= f.number_field :steal, class: "steal", min: 0 %></td>
       </tr>
     </table>
     <h3>投手成績登録</h3>
@@ -55,17 +57,13 @@
     <table class="table table-bordered table-condensed">
       <tr>
         <th>対戦チーム</th>
-        <th>自チーム得点</th>
-        <th>相手チーム得点</th>
+        <th>スコア</th>
         <th>試合日</th>
-        <th>勝敗</th>
       </tr>
       <tr>
         <td><%= f.text_field :team_against, class: "team_against" %></td>
-        <td><%= f.number_field :score_my_team, class: "score_my_team", min: 0 %></td>
-        <td><%= f.number_field :score_team_against, class: "score_team_against", min: 0 %></td>
+        <td><%= f.number_field :score_my_team, class: "score_my_team", min: 0 %> - <%= f.number_field :score_team_against, class: "score_team_against", min: 0 %></td>
         <td><%= f.date_select :date, class: "date" %></td>
-        <td></td>
       </tr>
     </table>
     <%= f.submit("投稿する", class: "btn btn-primary center-block")%>

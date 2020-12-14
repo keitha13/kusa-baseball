@@ -7,4 +7,6 @@ class Post < ApplicationRecord
   def favorited_by?(user)
     favorites.where(user_id: user.id).exists?
   end
+
+  enum win_lose: {win: 0, draw: 1, lose: 2}
 end

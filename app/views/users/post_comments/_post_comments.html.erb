@@ -1,5 +1,3 @@
-
-
 <!--コメント一覧-->
 <% post_comments.each do |post_comment| %>
 	<div class="card border-0">
@@ -12,7 +10,7 @@
         </small>
         <% if post_comment.user == current_user %>
           <div>
-            <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, remote: true, class: "btn btn-outline-danger btn-sm" %>
+            <%= link_to "", post_post_comment_path(post_comment.post, post_comment), method: :delete, remote: true, class: "btn btn-outline-danger btn-sm fas fa-trash" %>
           </div>
         <% end %>
       </div>
