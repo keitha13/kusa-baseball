@@ -1,0 +1,22 @@
+
+
+<!--コメント一覧-->
+<% post_comments.each do |post_comment| %>
+	<div class="card border-0">
+    <div class="card-body">
+      <div class="row align-items-center card-text mb-2">
+        <%= attachment_image_tag(post_comment.user, :profile_image, fallback: "no-image.png", size: "30x30") %>
+        <%= post_comment.user.name %>
+        <small class="text-muted float-right mx-2">
+          <%= post_comment.created_at.strftime('%m/%d/%R') %>
+        </small>
+        <% if post_comment.user == current_user %>
+          <div>
+            <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, remote: true, class: "btn btn-outline-danger btn-sm" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="card-text"><%= post_comment.comment %></div>
+    </div>
+  </div>
+<% end %>

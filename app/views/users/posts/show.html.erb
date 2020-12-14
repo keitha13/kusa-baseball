@@ -95,24 +95,19 @@
       			<%= link_to "削除する", post_path(@post), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn col-md-12 btn-danger my-2" %>
       		<% end %>
 
-          <!--コメント入力フォーム-->
-      		<%= form_with(model:[@post, @post_comment], local: true) do |f| %>
-      		  <%= f.text_area :comment, placeholder: "コメントを記入" %>
-      		  <%= f.submit "送信する", class: "btn" %>
-      		<% end %>
+      		<!--コメント入力フォーム-->
+          <div class="form-group mt-5">
+          	<%= form_with(model:[@post, @post_comment], remote: true) do |f| %>
+          	  <%= f.text_area :comment, placeholder: "コメントを入力...", class: "col-12" %>
+          	  <div><%= f.submit "送信する", class: "btn btn-outline-success btn-sm float-right" %></div>
+          	<% end %>
+          </div>
 
-          <!--コメント一覧-->
-      		<% @post.post_comments.each do |post_comment| %>
-      		  <%= attachment_image_tag(post_comment.user, :profile_image, fallback: "no_image.jpg", size: "50x50") %>
-      		  <%= post_comment.user.name %>
-      		  <%= post_comment.created_at.strftime('%Y/%m/%d') %>
-      		  <%= post_comment.comment %>
-      		  <% if post_comment.user == current_user %>
-            <div>
-              <%= link_to "削除", post_post_comment_path(post_comment.post, post_comment), method: :delete, class: "btn btn-danger" %>
-            </div>
-          <% end %>
-      		<% end %>
+      		<div id="comments">
+      		  <%= render partial: "users/post_comments/post_comments", locals: {post_comments: @post.post_comments} %>
+      		</div>
+
+
 		</div>
   </div>
 </div>

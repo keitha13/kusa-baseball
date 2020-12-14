@@ -33,11 +33,11 @@ class Users::SessionsController < Devise::SessionsController
     if params[:user][:email].blank?
       flash[:error] = "メールアドレスを入力して下さい。"
       return
-    end
-    if params[:user][:password].blank?
+    elsif params[:user][:password].blank?
       flash[:error] = "パスワードを入力して下さい。"
       return
     end
+    
     @user = User.find_by(email: params[:user][:email].downcase)
     if  @user && @user.valid_password?(params[:user][:password]) && @user.active_for_authentication? == false
       flash[:error] = "退会済みです。"
