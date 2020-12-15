@@ -5,8 +5,8 @@ class Users::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
-    @user = current_user
+    @search = Post.ransack(params[:q])
+    @posts = @search.result
   end
 
   def show

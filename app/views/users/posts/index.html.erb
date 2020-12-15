@@ -4,6 +4,12 @@
     <%= render "users/users/sidebar" %>
 
     <div class="col-md-6 offset-2 mt-5" id="main">
+
+      <%= search_form_for @search do |f| %>
+        <%= f.search_field :body_cont %>
+        <%= f.submit %>
+      <% end %>
+
       <% @posts.each do |post| %>
         <div class="card mb-4">
           <div class="card-body">
