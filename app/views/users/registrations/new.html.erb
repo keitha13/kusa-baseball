@@ -1,7 +1,8 @@
 <div class="container">
-  <div class="text-center mb-4">
+  <div class="text-center my-4">
     <h1 class="h3 mb-3 font-weight-normal">選手登録</h1>
   </div>
+
   <%= form_with model: @user, url: user_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
     <p><%= render "users/shared/error_messages", resource: resource %></p>
     <div class="form-label-group">
@@ -26,4 +27,5 @@
     <%= f.submit "選手登録", class: "btn btn-primary btn-lg btn-block" %>
   <% end %>
   <%= render "users/shared/links" %>
+  <%= link_to user_google_oauth2_omniauth_authorize_path do %><% end %>
 </div>

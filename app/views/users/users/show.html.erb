@@ -41,6 +41,66 @@
           <p><%= link_to "退会する", quit_users_path, class: "btn btn-danger col-md-12 my-3" %></p>
         <% end %>
       </div>
+
+      <h3>通算打者成績　打率：<%= @ave.round(4) %></h3>
+      <table class="table table-bordered table-condensed">
+        <tr>
+          <th>打数</th>
+          <th>単打</th>
+          <th>二塁打</th>
+          <th>三塁打</th>
+          <th>本塁打</th>
+          <th>打点</th>
+          <th>得点</th>
+          <th>四死球</th>
+          <th>盗塁</th>
+        </tr>
+        <tr>
+          <td><%= @total_AB %></td>
+          <td><%= @total_single %></td>
+          <td><%= @total_double %></td>
+          <td><%= @total_triple %></td>
+          <td><%= @total_HR %></td>
+          <td><%= @total_RBI %></td>
+          <td><%= @total_run %></td>
+          <td><%= @total_BB_HBP %></td>
+          <td><%= @total_steal %></td>
+        </tr>
+      </table>
+      <h3>通算投手成績</h3>
+      <table class="table table-bordered table-condensed">
+        <tr>
+          <th>投球回</th>
+          <th>被安打</th>
+          <th>失点</th>
+          <th>奪三振</th>
+          <th>与四死球</th>
+        </tr>
+        <tr>
+          <td><%= @total_inning %></td>
+          <td><%= @total_hit_allowed %></td>
+          <td><%= @total_run_allowed %></td>
+          <td><%= @total_SO %></td>
+          <td><%= @total_BB_HBP_allowed %></td>
+        </tr>
+      </table>
+
+      <% if user_signed_in? %>
+        <% unless @user.id == current_user.id %>
+          <% if @isRoom == true %>
+            <%= link_to room_path(@roomId) do %>
+              <button id="dm_submit"><i class="fas fa-envelope"></i></button>
+            <% end %>
+          <% else %>
+            <%= form_for @room, url: rooms_path do |f| %>
+              <%= fields_for @entry do |e| %>
+                 <%= e.hidden_field :user_id, :value=> @user.id %>
+              <% end %>
+              <button type="submit" id="dm_submit"><i class="fas fa-envelope"></i></button>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>

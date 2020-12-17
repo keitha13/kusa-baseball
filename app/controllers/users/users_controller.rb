@@ -5,6 +5,47 @@ class Users::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+
+    # 通算成績算出用
+    posts = current_user.posts
+    @total_AB = posts.sum(:AB)
+    @total_single = posts.sum(:single)
+    @total_double = posts.sum(:double)
+    @total_triple = posts.sum(:triple)
+    @total_HR = posts.sum(:HR)
+    @total_RBI = posts.sum(:RBI)
+    @total_run = posts.sum(:run)
+    @total_BB_HBP = posts.sum(:BB_HBP)
+    @total_steal = posts.sum(:steal)
+    @total_inning = posts.sum(:inning)
+    @total_hit_allowed = posts.sum(:hit_allowed)
+    @total_run_allowed = posts.sum(:run_allowed)
+    @total_SO = posts.sum(:SO)
+    @total_BB_HBP_allowed = posts.sum(:BB_HBP_allowed)
+
+    total_hits = @total_single + @total_double + @total_triple + @total_HR
+    @ave = total_hits / @total_AB.to_f
+
+    #チャット
+    if user_signed_in?
+      @currentUserEntry = Entry.where(user_id: current_user.id)
+      @userEntry = Entry.where(user_id: @user.id)
+        unless @user.id == current_user.id
+          @currentUserEntry.each do |cu|
+            @userEntry.each do |u|
+              if cu.room_id == u.room_id then
+                @isRoom = true
+                @roomId = cu.room_id
+              end
+            end
+          end
+          unless @isRoom
+            @room = Room.new
+            @entry = Entry.new
+          end
+        end
+    end
+
   end
 
   def edit

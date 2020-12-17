@@ -15,7 +15,7 @@
           <div class="card-body">
             <%= link_to user_path(post.user) do %>
               <div class="row align-items-center">
-                <%= attachment_image_tag(post.user, :profile_image, fallback: "no-image.jpg", size: "50x50") %>
+                <%= attachment_image_tag(post.user, :profile_image, fallback: "no-image.png", size: "50x50") %>
                 <h5><%= post.user.name %></h5>
               </div>
             <% end %>

@@ -9,7 +9,7 @@
         <div class="card-body">
           <%= link_to user_path(@post.user) do %>
             <div class="row align-items-center">
-              <%= attachment_image_tag(@post.user, :profile_image, fallback: "no_image.jpg", size: "70x70") %>
+              <%= attachment_image_tag(@post.user, :profile_image, fallback: "no-image.png", size: "70x70") %>
               <h5><%= @post.user.name %></h5>
             </div>
           <% end %>
@@ -31,81 +31,81 @@
       </div>
 
       <h3>打者成績</h3>
-          <table class="table table-bordered table-condensed">
-            <tr>
-              <th>打数</th>
-              <th>単打</th>
-              <th>二塁打</th>
-              <th>三塁打</th>
-              <th>本塁打</th>
-              <th>打点</th>
-              <th>得点</th>
-              <th>四死球</th>
-            </tr>
-            <tr>
-              <td><%= @post.AB %></td>
-              <td><%= @post.single %></td>
-              <td><%= @post.double %></td>
-              <td><%= @post.triple %></td>
-              <td><%= @post.HR %></td>
-              <td><%= @post.RBI %></td>
-              <td><%= @post.run %></td>
-              <td><%= @post.BB_HBP %></td>
-            </tr>
-          </table>
-          <h3>投手成績</h3>
-          <table class="table table-bordered table-condensed">
-            <tr>
-              <th>投球回</th>
-              <th>被安打</th>
-              <th>失点</th>
-              <th>奪三振</th>
-              <th>与四死球</th>
-            </tr>
-            <tr>
-              <td><%= @post.inning %></td>
-              <td><%= @post.hit_allowed %></td>
-              <td><%= @post.run_allowed %></td>
-              <td><%= @post.SO %></td>
-              <td><%= @post.BB_HBP_allowed %></td>
-            </tr>
-          </table>
-          <h3>チーム成績</h3>
-          <table class="table table-bordered table-condensed">
-            <tr>
-              <th>対戦チーム</th>
-              <th>スコア</th>
-              <th>試合日</th>
-              <th>勝敗</th>
-            </tr>
-            <tr>
-              <td><%= @post.team_against %></td>
-              <td><%= @post.score_my_team %> - <%= @post.score_team_against %></td>
-              <td><%= @post.date.strftime('%Y/%m/%d') %></td>
-              <td></td>
-            </tr>
-          </table>
+      <table class="table table-bordered table-condensed">
+        <tr>
+          <th>打数</th>
+          <th>単打</th>
+          <th>二塁打</th>
+          <th>三塁打</th>
+          <th>本塁打</th>
+          <th>打点</th>
+          <th>得点</th>
+          <th>四死球</th>
+        </tr>
+        <tr>
+          <td><%= @post.AB %></td>
+          <td><%= @post.single %></td>
+          <td><%= @post.double %></td>
+          <td><%= @post.triple %></td>
+          <td><%= @post.HR %></td>
+          <td><%= @post.RBI %></td>
+          <td><%= @post.run %></td>
+          <td><%= @post.BB_HBP %></td>
+        </tr>
+      </table>
+      <h3>投手成績</h3>
+      <table class="table table-bordered table-condensed">
+        <tr>
+          <th>投球回</th>
+          <th>被安打</th>
+          <th>失点</th>
+          <th>奪三振</th>
+          <th>与四死球</th>
+        </tr>
+        <tr>
+          <td><%= @post.inning %></td>
+          <td><%= @post.hit_allowed %></td>
+          <td><%= @post.run_allowed %></td>
+          <td><%= @post.SO %></td>
+          <td><%= @post.BB_HBP_allowed %></td>
+        </tr>
+      </table>
+      <h3>チーム成績</h3>
+      <table class="table table-bordered table-condensed">
+        <tr>
+          <th>対戦チーム</th>
+          <th>スコア</th>
+          <th>試合日</th>
+          <th>勝敗</th>
+        </tr>
+        <tr>
+          <td><%= @post.team_against %></td>
+          <td><%= @post.score_my_team %> - <%= @post.score_team_against %></td>
+          <td><%= @post.date.strftime('%Y/%m/%d') %></td>
+          <td></td>
+        </tr>
+      </table>
 
-          <%= attachment_image_tag @post, :post_image, size: "100x100" %>
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @post.youtube_url%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          <% if @post.user == current_user %>
-            <%= link_to '編集する', edit_post_path(@post), class: "col-md-12 btn btn-primary my-2" %>
-          <% end %>
-          <% if @post.user == current_user %>
-      			<%= link_to "削除する", post_path(@post), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn col-md-12 btn-danger my-2" %>
-      		<% end %>
+      <%= attachment_image_tag @post, :post_image, size: "100x100" %>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @post.youtube_url%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <% if @post.user == current_user %>
+        <%= link_to '編集する', edit_post_path(@post), class: "col-md-12 btn btn-primary my-2" %>
+      <% end %>
+      <% if @post.user == current_user %>
+  			<%= link_to "削除する", post_path(@post), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn col-md-12 btn-danger my-2" %>
+  		<% end %>
 
-      		<!--コメント入力フォーム-->
-          <div class="form-group mt-5">
-          	<%= form_with(model:[@post, @post_comment], remote: true) do |f| %>
-          	  <%= f.text_area :comment, placeholder: "コメントを入力...", class: "col-12" %>
-          	  <div><%= f.submit "送信する", class: "btn btn-outline-success btn-sm float-right" %></div>
-          	<% end %>
-          </div>
+  		<!--コメント入力フォーム-->
+      <div class="form-group mt-5">
+      	<%= form_with(model:[@post, @post_comment], remote: true) do |f| %>
+      	  <%= f.text_area :comment, placeholder: "コメントを入力...", class: "col-12" %>
+      	  <div><%= f.submit "送信する", class: "btn btn-outline-success btn-sm float-right" %></div>
+      	<% end %>
+      </div>
 
-      		<div id="comments">
-      		  <%= render partial: "users/post_comments/post_comments", locals: {post_comments: @post.post_comments} %>
-      		</div>
+  		<div id="comments">
+  		  <%= render partial: "users/post_comments/post_comments", locals: {post_comments: @post.post_comments} %>
+  		</div>
 
 
 		</div>
