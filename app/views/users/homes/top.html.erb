@@ -10,6 +10,11 @@
 </header>
 
 <main role="main">
+  <% if flash[:notice] %>
+    <div class="alert alert-warning" role="alert">
+      <%= notice %>
+    </div>
+  <% end %>
   <section class="jumbotron text-center">
     <div class="container">
       <h1 class="jumbotron-heading">集まれ、草野球プレーヤー</h1>

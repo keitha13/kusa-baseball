@@ -1,4 +1,6 @@
 class Users::RoomsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @user = current_user
     @currentEntries = current_user.entries
@@ -27,8 +29,8 @@ class Users::RoomsController < ApplicationController
   end
 
   def destroy
-      room = Room.find(params[:id])
-      room.destroy
-      redirect_to users_rooms_path
+    room = Room.find(params[:id])
+    room.destroy
+    redirect_to users_rooms_path
   end
 end

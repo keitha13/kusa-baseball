@@ -37,9 +37,9 @@ class Users::SessionsController < Devise::SessionsController
       flash[:error] = "パスワードを入力して下さい。"
       return
     end
-    
+
     @user = User.find_by(email: params[:user][:email].downcase)
-    if  @user && @user.valid_password?(params[:user][:password]) && @user.active_for_authentication? == false
+    if @user && @user.valid_password?(params[:user][:password]) && @user.active_for_authentication? == false
       flash[:error] = "退会済みです。"
       redirect_to new_user_session_path
     elsif @user.nil?

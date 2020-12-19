@@ -7,6 +7,7 @@ module ApplicationCable
     end
 
     protected
+
     def find_verified_user
       # pp cookies.signed
       if verified_user = env['warden'].user

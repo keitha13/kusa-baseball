@@ -18,15 +18,7 @@
 //= require_tree .
 //= require popper
 
-  $(function(){
-    $('#post_post_image').on('change', function (e) {
-    var reader = new FileReader();
-    reader.onload = function (e) {
-        $("#preview").attr('src', e.target.result);
-    }
-    reader.readAsDataURL(e.target.files[0]);
-    });
-  });
+
 
  $(function(){
     $('#user_profile_image').on('change', function (e) {
@@ -37,3 +29,31 @@
     reader.readAsDataURL(e.target.files[0]);
     });
   });
+  
+  
+  
+  $('#post_post_images_post_images').on('change', function (e) {
+    if(e.target.files.length > 5){
+      alert('一度に投稿できるのは五枚までです。');
+      $('#post_post_images_post_images').val = "";
+      for( let i = 0; i < 5; i++) {
+        $(`#preview_${i}`).attr('src', "");
+      }
+    }else{
+      let reader = new Array(5);
+      for( let i = 0; i < 5; i++) {
+        $(`#preview_${i}`).attr('src', "");
+      }
+
+      for(let i = 0; i < e.target.files.length; i++) {
+        reader[i] = new FileReader();
+        reader[i].onload = finisher(i,e); 
+        reader[i].readAsDataURL(e.target.files[i]);
+        function finisher(i,e){
+          return function(e){
+          $(`#preview_${i}`).attr('src', e.target.result);
+          }
+        }
+      }
+   }
+});

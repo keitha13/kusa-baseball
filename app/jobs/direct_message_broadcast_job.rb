@@ -10,5 +10,4 @@ class DirectMessageBroadcastJob < ApplicationJob
   def render_direct_message(direct_message)
     ApplicationController.renderer.render partial: 'users/direct_messages/direct_message', locals: { direct_message: direct_message }
   end
-
 end

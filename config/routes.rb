@@ -1,15 +1,14 @@
 Rails.application.routes.draw do
-
   root "users/homes#top"
 
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
-    omniauth_callbacks: 'users/omniauth_callbacks'
+    omniauth_callbacks: 'users/omniauth_callbacks',
   }
 
   devise_for :admins, controllers: {
-  sessions: 'admins/sessions'
+    sessions: 'admins/sessions',
   }
 
   get 'homes/top'
@@ -30,5 +29,4 @@ Rails.application.routes.draw do
     resources :follow_relationships, only: [:create, :destroy]
     resources :rooms, only: [:index, :show, :create, :destroy]
   end
-
 end

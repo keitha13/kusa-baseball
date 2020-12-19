@@ -1,4 +1,7 @@
 class Users::UsersController < ApplicationController
+  before_action :authenticate_user!
+  before_action :ensure_correct_user, only: [:update]
+
   def index
     @users = User.all
   end
@@ -26,30 +29,35 @@ class Users::UsersController < ApplicationController
     total_hits = @total_single + @total_double + @total_triple + @total_HR
     @ave = total_hits / @total_AB.to_f
 
-    #チャット
+    # チャット
     if user_signed_in?
       @currentUserEntry = Entry.where(user_id: current_user.id)
       @userEntry = Entry.where(user_id: @user.id)
-        unless @user.id == current_user.id
-          @currentUserEntry.each do |cu|
-            @userEntry.each do |u|
-              if cu.room_id == u.room_id then
-                @isRoom = true
-                @roomId = cu.room_id
-              end
+      unless @user.id == current_user.id
+        @currentUserEntry.each do |cu|
+          @userEntry.each do |u|
+            if cu.room_id == u.room_id
+              @isRoom = true
+              @roomId = cu.room_id
             end
           end
-          unless @isRoom
-            @room = Room.new
-            @entry = Entry.new
-          end
         end
+        unless @isRoom
+          @room = Room.new
+          @entry = Entry.new
+        end
+      end
     end
-
   end
 
   def edit
     @user = User.find(params[:id])
+
+    if @user == current_user
+      render "edit"
+    else
+      redirect_to user_path(current_user)
+    end
   end
 
   def update
@@ -70,14 +78,14 @@ class Users::UsersController < ApplicationController
   end
 
   def followings
-    @user =User.find(params[:id])
-    @users =@user.followings.page(params[:page])
+    @user = User.find(params[:id])
+    @users = @user.followings.page(params[:page])
     render 'show_followings'
   end
 
   def followers
-    @user =User.find(params[:id])
-    @users =@user.followers.page(params[:page])
+    @user = User.find(params[:id])
+    @users = @user.followers.page(params[:page])
     render 'show_followers'
   end
 
@@ -85,6 +93,13 @@ class Users::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :birthday, :profile_image, :introduction,
-    :active_area, :email, :team)
+                                 :active_area, :email, :team)
+  end
+
+  def ensure_correct_user
+    @user = User.find(params[:id])
+    unless @user == current_user
+      redirect_to user_path(current_user)
+    end
   end
 end

@@ -68,5 +68,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # else
   #   @user = User.create(name:session[:name], email: session[:email], password: session[:password])
   # end
-
 end

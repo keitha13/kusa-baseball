@@ -3,6 +3,7 @@ class RoomChannel < ApplicationCable::Channel
     # stream_from "some_channel"
     stream_from "room_channel_#{params['room']}"
   end
+
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
   end
