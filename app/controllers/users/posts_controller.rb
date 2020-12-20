@@ -8,7 +8,8 @@ class Users::PostsController < ApplicationController
 
   def index
     @search = Post.ransack(params[:q])
-    @posts = @search.result
+    # @posts = @search.result
+    @posts = Post.page(params[:page]).per(2)
   end
 
   def show

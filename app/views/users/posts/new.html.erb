@@ -6,21 +6,19 @@
     <div class="col-8 offset-1 my-5" id="main">
 
     <h1>新規投稿</h1>
-    <%= form_with model:@post, local: true do |f| %>
-
+    <%= form_with model: @post, url: posts_path,method: :post, local: true do |f| %>
+      <div class="my-3">
+        <%= f.label :投稿画像 %>
+        <%= f.attachment_field :post_images_post_images, multiple: true %>
+      </div>
+      <img id="preview_0" style="width:15%;">
+      <img id="preview_1" style="width:15%;">
+      <img id="preview_2" style="width:15%;">
+      <img id="preview_3" style="width:15%;">
+      <img id="preview_4" style="width:15%;">
       <div class="my-3">
         <%= f.label :コメント %><br>
         <%= f.text_area :body %>
-      </div>
-
-      <div class="my-3">
-        <%= f.label :投稿画像 %><br>
-        <%= f.attachment_field :post_images_post_images, multiple: true, class: "post_image" %>
-        <img id="preview_0" style="width:15%;">
-        <img id="preview_1" style="width:15%;">
-        <img id="preview_2" style="width:15%;">
-        <img id="preview_3" style="width:15%;">
-        <img id="preview_4" style="width:15%;">
       </div>
 
       <div class="my-3">
@@ -30,7 +28,7 @@
 
       <div class="my-3">
         <h3>打撃</h3>
-        <table class="table">
+        <table class="table table-responsive-md">
           <tr>
             <th>打数</th>
             <th>単打</th>
@@ -58,7 +56,7 @@
 
       <div class="my-3">
         <h3>投手</h3>
-        <table class="table">
+        <table class="table table-responsive-md">
           <tr>
             <th>投球回</th>
             <th>被安打</th>
@@ -78,21 +76,54 @@
 
       <div class="my-3">
         <h3>チーム</h3>
-        <table class="table">
+        <table class="table table-responsive-md">
           <tr>
             <th>対戦チーム</th>
             <th>スコア</th>
+            <th></th>
             <th>試合日</th>
           </tr>
           <tr>
             <td><%= f.text_field :team_against, class: "team_against" %></td>
-            <td><%= f.number_field :score_my_team, class: "score_my_team", min: 0 %> - <%= f.number_field :score_team_against, class: "score_team_against", min: 0 %></td>
+            <td><%= f.number_field :score_my_team, class: "score_my_team", min: 0, placeholder: "自チーム" %></td>
+            <td><%= f.number_field :score_team_against, class: "score_team_against", min: 0, placeholder: "相手チーム" %></td>
             <td><%= f.date_select :date, class: "date" %></td>
           </tr>
         </table>
       </div>
-      <%= f.submit("投稿する", class: "btn btn-primary center-block")%>
+
+
+      <%= f.submit("投稿する", class: "btn btn-primary col-12") %>
     <% end %>
+
     </div>
   </div>
 </div>
+
+
+<script>
+$('#post_post_images_post_images').on('change', function (e) {
+    if(e.target.files.length > 5){
+      alert('一度に投稿できるのは五枚までです。');
+      $('#post_post_images_post_images').val = "";
+      for( let i = 0; i < 5; i++) {
+        $(`#preview_${i}`).attr('src', "");
+      }
+    }else{
+      let reader = new Array(5);
+      for( let i = 0; i < 5; i++) {
+        $(`#preview_${i}`).attr('src', "");
+      }
+      for(let i = 0; i < e.target.files.length; i++) {
+        reader[i] = new FileReader();
+        reader[i].onload = finisher(i,e);
+        reader[i].readAsDataURL(e.target.files[i]);
+        function finisher(i,e){
+          return function(e){
+          $(`#preview_${i}`).attr('src', e.target.result);
+          }
+        }
+      }
+   }
+});
+</script>

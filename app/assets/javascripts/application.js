@@ -17,43 +17,26 @@
 //= require bootstrap-sprockets
 //= require_tree .
 //= require popper
+//= require jquery.jscroll.min.js
 
 
 
- $(function(){
-    $('#user_profile_image').on('change', function (e) {
-    var reader = new FileReader();
-    reader.onload = function (e) {
-        $("#preview").attr('src', e.target.result);
-    }
-    reader.readAsDataURL(e.target.files[0]);
+
+// post_indexの無限スクロール
+$(document).on('turbolinks:load', function() {
+  $(window).on('scroll', function() {
+        scrollHeight = $(document).height();
+        scrollPosition = $(window).height() + $(window).scrollTop();
+        if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
+            $('.jscroll').jscroll({
+              contentSelector: '.posts',
+              nextSelector: 'span.next:last a',
+              loadingHtml: '読み込み中'
+            });
+        }
+    });
+    $('.jscroll').jscroll({
+      contentSelector: '.posts',
+      nextSelector: 'span.next:last a'
     });
   });
-  
-  
-  
-  $('#post_post_images_post_images').on('change', function (e) {
-    if(e.target.files.length > 5){
-      alert('一度に投稿できるのは五枚までです。');
-      $('#post_post_images_post_images').val = "";
-      for( let i = 0; i < 5; i++) {
-        $(`#preview_${i}`).attr('src', "");
-      }
-    }else{
-      let reader = new Array(5);
-      for( let i = 0; i < 5; i++) {
-        $(`#preview_${i}`).attr('src', "");
-      }
-
-      for(let i = 0; i < e.target.files.length; i++) {
-        reader[i] = new FileReader();
-        reader[i].onload = finisher(i,e); 
-        reader[i].readAsDataURL(e.target.files[i]);
-        function finisher(i,e){
-          return function(e){
-          $(`#preview_${i}`).attr('src', e.target.result);
-          }
-        }
-      }
-   }
-});

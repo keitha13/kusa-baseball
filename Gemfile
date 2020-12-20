@@ -84,3 +84,5 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 
 gem 'rubocop-airbnb'
+
+gem 'kaminari'

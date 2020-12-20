@@ -18,16 +18,38 @@
           </p>
         </div>
       </div>
-      <div class="card border-0 col-md-6 offset-3">
-        <% if user_signed_in? && @user != current_user %>
-          <div id="follow_form">
-            <% if current_user.following?(@user) %>
-              <%= render "users/follow_relationships/unfollow" %>
-            <% else %>
-              <%= render "users/follow_relationships/follow" %>
+      <div class="card border-0 col-6 offset-3">
+        <div class="text-center">
+          <% if user_signed_in? && @user != current_user %>
+            <div id="follow_form">
+              <% if current_user.following?(@user) %>
+                <%= render "users/follow_relationships/unfollow" %>
+              <% else %>
+                <%= render "users/follow_relationships/follow" %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="my-3 text-center">
+          <% if user_signed_in? %>
+            <% unless @user.id == current_user.id %>
+              <% if @isRoom == true %>
+                <%= link_to room_path(@roomId), class: "" do %>
+                  <button id="dm_submit" class="btn btn-outline-success btn-sm">DMを送る</button>
+                <% end %>
+              <% else %>
+                <%= form_for @room, url: rooms_path do |f| %>
+                  <%= fields_for @entry do |e| %>
+                     <%= e.hidden_field :user_id, :value=> @user.id %>
+                  <% end %>
+                  <button type="submit" id="dm_submit" class="btn btn-outline-success btn-sm">DMを送る</button>
+                <% end %>
+              <% end %>
             <% end %>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
+
         <ul class="list-group list-group-flush">
           <li class="list-group-item text-center">誕生日：<%= @user.birthday %></li>
           <li class="list-group-item text-center">所属チーム：<%= @user.team %></li>
@@ -89,14 +111,14 @@
         <% unless @user.id == current_user.id %>
           <% if @isRoom == true %>
             <%= link_to room_path(@roomId) do %>
-              <button id="dm_submit"><i class="fas fa-envelope"></i></button>
+              <button id="dm_submit"><i class="far fa-envelope"></i></button>
             <% end %>
           <% else %>
             <%= form_for @room, url: rooms_path do |f| %>
               <%= fields_for @entry do |e| %>
                  <%= e.hidden_field :user_id, :value=> @user.id %>
               <% end %>
-              <button type="submit" id="dm_submit"><i class="fas fa-envelope"></i></button>
+              <button type="submit" id="dm_submit"><i class="far fa-envelope"></i></button>
             <% end %>
           <% end %>
         <% end %>

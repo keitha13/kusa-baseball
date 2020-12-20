@@ -1,69 +1,44 @@
-<div class="container">
-   <%= form_with model:@user, local: true do |f| %>
+<div class="container-fluid">
+  <div class="row">
+    <%= render "users/users/sidebar", user: @user %>
 
-     <h3 class="edit">登録情報編集</h3>
-     <div class="row">
-       <div class="col-lg-2">
-          <%= f.label :プロフィール画像 %>
-       </div>
-       <div class="col-lg-4">
-          <%= f.attachment_field :profile_image, class: "profile_image" %><br>
-          <img id="preview" style="width:25%;" class="profile_image">
-       </div>
-     </div>
-     <div class="row">
-       <div class="col-lg-2">
-          <%= f.label :名前 %>
-       </div>
-       <div class="col-lg-4">
-          <%= f.text_field :name, class: "name" %>
-       </div>
-     </div>
-     <div class="row">
-       <div class="col-lg-2">
-          <%= f.label :自己紹介 %>
-       </div>
-       <div class="col-lg-4">
-          <%= f.text_area :introduction, class: "introduction" %>
-       </div>
-     </div>
-     <div class="row">
-       <div class="col-lg-2">
-          <%= f.label :メールアドレス %>
-       </div>
-       <div class="col-lg-5">
-          <%= f.text_field :email, class: "email" %>
-      </div>
-     </div>
-     <div class="row">
-       <div class="col-lg-2">
-          <%= f.label :誕生日 %>
-       </div>
-       <div class="col-lg-5">
-          <%= f.date_select :birthday, use_month_numbers: true, start_year: 1994, end_year: (Time.now.year), default: Date.new(1989, 1, 1), class: "birthday" %>
-       </div>
-     </div>
-     <div class="row">
-       <div class="col-lg-2">
-          <%= f.label :所属チーム %>
-       </div>
-       <div class="col-lg-2">
-          <%= f.text_field :team, class: "team" %>
-      </div>
-     </div>
-     <div class="row">
-       <div class="col-lg-2">
-          <%= f.label :活動地域 %>
-       </div>
-       <div class="col-lg-2">
-          <%= f.select :active_area, User.active_areas.keys, {prompt: '選択してください'}, class: "active_area" %>
-      </div>
-     </div>
-     <div class="row">
-  	   <div class="col-lg-10">
-         <%= f.submit('編集内容を保存する', class: 'btn btn-primary center-block')%>
-  	   </div>
-		 </div>
-	 <% end %>
-
+    <div class="col-8 offset-1 mt-5" id="main">
+      <%= form_with model:@user, local: true do |f| %>
+        <div class="card border-0 ">
+          <div class="card-body text-center">
+            <div class="card-text">
+              <img id="preview" style="width:25%;" class="profile_image"><br>
+              <%= f.label :プロフィール画像 %>：<br>
+              <%= f.attachment_field :profile_image, class: "profile_image" %>
+            </div>
+            <div class="card-text my-5">
+              <%= f.label :名前 %>：<br>
+              <%= f.text_field :name, class: "name" %>
+            </div>
+            <div class="card-text my-5">
+              <%= f.label :自己紹介 %>：<br>
+              <%= f.text_area :introduction, class: "introduction" %>
+            </div>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item text-center">誕生日：<%= f.date_select :birthday, use_month_numbers: true, start_year: 1994, end_year: (Time.now.year), default: Date.new(1989, 1, 1), class: "birthday" %></li>
+            <li class="list-group-item text-center">所属チーム：<%= f.text_field :team, class: "team" %></li>
+            <li class="list-group-item text-center">活動地域：<%= f.select :active_area, User.active_areas.keys, {prompt: '選択してください'}, class: "active_area" %></li>
+            <li class="list-group-item text-center">Email：<%= f.text_field :email, class: "email" %></li>
+          </ul>
+          <%= f.submit('編集内容を保存する', class: 'btn btn-primary col-6 mx-auto my-5')%>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
+
+<script>
+  $('#user_profile_image').on('change', function (e) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+          $("#preview").attr('src', e.target.result);
+      }
+      reader.readAsDataURL(e.target.files[0]);
+  });
+</script>
