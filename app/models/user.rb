@@ -5,10 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i(google_oauth2)
 
+  validates :name, presence: true
+
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
-  
+
   has_many :following_relationships, foreign_key: "follower_id", class_name: "FollowRelationship", dependent: :destroy
   has_many :followings, through: :following_relationships
   has_many :follower_relationships, foreign_key: "following_id", class_name: "FollowRelationship", dependent: :destroy
@@ -49,7 +51,7 @@ class User < ApplicationRecord
   def unfollow(other_user)
     following_relationships.find_by(following_id: other_user.id).destroy
   end
-  
+
 
   # 以下、SNSサインナップ・ログイン
   def self.without_sns_data(auth)

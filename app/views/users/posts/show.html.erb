@@ -131,18 +131,16 @@
             <div class="card-body">
               <table class="table table-bordered table-condensed">
                 <tr>
-                  <th>投球回</th>
-                  <th>被安打</th>
+                  <th>対戦チーム</th>
+                  <th>得点</th>
                   <th>失点</th>
-                  <th>奪三振</th>
-                  <th>与四死球</th>
+                  <th>試合日</th>
                 </tr>
                 <tr>
-                  <td><%= @post.inning %></td>
-                  <td><%= @post.hit_allowed %></td>
-                  <td><%= @post.run_allowed %></td>
-                  <td><%= @post.SO %></td>
-                  <td><%= @post.BB_HBP_allowed %></td>
+                  <td><%= @post.team_against %></td>
+                  <td><%= @post.score_my_team %></td>
+                  <td><%= @post.score_team_against %></td>
+                  <td><%= @post.date %></td>
                 </tr>
               </table>
             </div>
@@ -184,18 +182,6 @@
         </div>
       <% end %>
 
-      <!-- エラーメッセージ表示-->
-    	<% if @post_comment.errors.any? %>
-    		<div id="error_explanation">
-    			<h3><%= @post_comment.errors.count %>個のエラーがあります。</h3>
-    			<ul>
-    				<% @post_comment.errors.full_messages.each do |message| %>
-    				<li><%= message %></li>
-    				<% end %>
-    			</ul>
-    		</div>
-    	<% end %>
-    	<!-- エラーメッセージ表示-->
 
   		<!--コメント入力フォーム-->
       <div class="form-group my-5">

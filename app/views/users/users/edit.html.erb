@@ -3,6 +3,17 @@
     <%= render "users/users/sidebar", user: @user %>
 
     <div class="col-8 offset-1 mt-5" id="main">
+
+      <!-- エラーメッセージ表示-->
+    	<% if @user.errors.any? %>
+    		<div id="error_explanation" class="text-center alert alert-danger"  role="alert">
+  				<% @user.errors.full_messages.each do |message| %>
+  				<span><%= message %></span>
+  				<% end %>
+    		</div>
+    	<% end %>
+    	<!-- エラーメッセージ表示-->
+
       <%= form_with model:@user, local: true do |f| %>
         <div class="card border-0 ">
           <div class="card-body text-center">

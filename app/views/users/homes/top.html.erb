@@ -1,9 +1,11 @@
 <header>
   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom shadow-sm">
 
-    <a href="/" class="my-0 mr-md-auto font-weight-bold">草野球名鑑</a>
+    <a href="/" class="my-0 mr-md-auto font-weight-bold text-dark" style="text-decoration: none;">
+      <h5><span style="color: #228b22;">草</span>野球名鑑</h5>
+    </a>
     <nav class="my-2 my-md-0 mr-md-3">
-      <a class="p-2 text-dark" href="#">初めての方</a>
+      <a class="p-2 text-dark" href="#about">初めての方</a>
       <%= link_to "新規登録", new_user_registration_path, class: "btn btn-outline-warning my-2" %>
       <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary my-2" %>
     </nav>
@@ -26,7 +28,7 @@
       </p>
     </div>
   </section>
-  <div class="album py-5">
+  <div class="album py-5" id="about">
     <div class="container">
       <h3 class="text-center mb-5">About</h3>
       <div class="row">

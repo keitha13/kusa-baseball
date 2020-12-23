@@ -9,13 +9,10 @@
 
     <!-- エラーメッセージ表示-->
   	<% if @post.errors.any? %>
-  		<div id="error_explanation">
-  			<h3><%= @post.errors.count %>個のエラーがあります。</h3>
-  			<ul>
-  				<% @post.errors.full_messages.each do |message| %>
-  				<li><%= message %></li>
-  				<% end %>
-  			</ul>
+  		<div id="error_explanation" class="text-center alert alert-danger"  role="alert">
+				<% @post.errors.full_messages.each do |message| %>
+				<span><%= message %></span>
+				<% end %>
   		</div>
   	<% end %>
   	<!-- エラーメッセージ表示-->
