@@ -3,7 +3,7 @@
   <div class="row">
     <%= render "users/users/sidebar", user: @user %>
 
-    <div class="col-md-8 offset-1 mt-5" id="main">
+    <div class="col-8 offset-1 mt-5" id="main">
       <div class="card mb-4 border-0 ">
         <div class="card-body text-center">
           <div class="card-text">
@@ -66,7 +66,7 @@
         <% end %>
       </div>
 
-      <h3>通算打者成績　打率：<%= @ave.round(4) %></h3>
+      <h3>通算打者成績　打率：<%= @ave.round(3) %></h3>
       <table class="table table-bordered table-condensed">
         <tr>
           <th>打数</th>
@@ -91,8 +91,8 @@
           <td><%= @total_steal %></td>
         </tr>
       </table>
-      <h3>通算投手成績</h3>
-      <table class="table table-bordered table-condensed">
+      <h3>通算投手成績　防御率：<%= @era.round(2) %></h3>
+      <table class="table table-bordered table-condensed mb-5">
         <tr>
           <th>投球回</th>
           <th>被安打</th>
@@ -108,6 +108,35 @@
           <td><%= @total_BB_HBP_allowed %></td>
         </tr>
       </table>
+
+
+      <div class="jscroll posts my-5">
+        <% @posts.each do |post| %>
+          <div class="card mb-4">
+            <div class="card-body">
+              <%= link_to user_path(post.user) do %>
+                <div class="row align-items-center">
+                  <%= attachment_image_tag(post.user, :profile_image, fallback: "no-image.png", size: "50x50") %>
+                  <h5><%= post.user.name %></h5>
+                </div>
+              <% end %>
+              <p class="card-text">
+                <small class="text-muted"><%= post.created_at.strftime('%Y/%m/%-d/%R') %></small>
+              </p>
+              <p class="card-text">
+                <%= simple_format(post.body) %>
+              </p>
+              <div class="row align-items-center">
+                <div class="far fa-comment col-4 text-center"><%= post.post_comments.count %></div>
+                <div class="col-4 text-center" id="favorite-<%= post.id %>">
+                  <%= render partial: "users/favorites/favorite", locals: {post: post} %>
+                </div>
+                <div class="col-4 text-center"><%= link_to "詳細", post_path(post), class: "btn btn-outline-primary" %></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <%= paginate @posts %>
 
     </div>
   </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_22_114833) do
+ActiveRecord::Schema.define(version: 2020_12_23_081001) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 2020_12_22_114833) do
     t.string "team_against"
     t.integer "score_my_team"
     t.integer "score_team_against"
-    t.datetime "date"
+    t.date "date"
     t.string "win_lose"
     t.boolean "status"
     t.datetime "created_at", null: false

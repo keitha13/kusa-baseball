@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get 'homes/top'
 
   scope module: :users do
-    resources :users, only: [:index, :show, :edit, :update] do
+    resources :users, only: [:show, :edit, :update] do
       collection do
         get "quit"
         put "out"

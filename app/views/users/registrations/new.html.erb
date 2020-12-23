@@ -1,6 +1,8 @@
+<%= render "users/homes/header"  %>
+
 <div class="container">
   <div class="text-center my-4">
-    <h1 class="h3 mb-3 font-weight-normal">選手登録</h1>
+    <h1 class="h3 mb-3 font-weight-normal">新規選手登録</h1>
   </div>
 
   <%= form_with model: @user, url: user_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
