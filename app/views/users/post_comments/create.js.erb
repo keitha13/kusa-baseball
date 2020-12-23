@@ -1,0 +1,4 @@
+$("#comments").html("<%= j(render partial: "users/post_comments/post_comments", locals: {post_comments: @post.post_comments}) %>");
+$("#post_comment_comment").val("");
+
+$("#comment_count").html("<%= j(render partial: "users/post_comments/comment_count", locals: {post_comments: @post.post_comments}) %>");

@@ -3,7 +3,7 @@
   <div class="row">
     <%= render "users/users/sidebar", user: @user %>
 
-    <div class="col-md-8 offset-1 mt-5" id="main">
+    <div class="col-8 offset-1 mt-5" id="main">
       <div class="card mb-4 border-0 ">
         <div class="card-body text-center">
           <div class="card-text">
@@ -18,29 +18,126 @@
           </p>
         </div>
       </div>
-      <div class="card border-0 col-md-6 offset-3">
-        <% if user_signed_in? && @user != current_user %>
-          <div id="follow_form">
-            <% if current_user.following?(@user) %>
-              <%= render "users/follow_relationships/unfollow" %>
-            <% else %>
-              <%= render "users/follow_relationships/follow" %>
+      <div class="card border-0 col-6 offset-3">
+        <div class="text-center">
+          <% if user_signed_in? && @user != current_user %>
+            <div id="follow_form">
+              <% if current_user.following?(@user) %>
+                <%= render "users/follow_relationships/unfollow" %>
+              <% else %>
+                <%= render "users/follow_relationships/follow" %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="my-3 text-center">
+          <% if user_signed_in? %>
+            <% unless @user.id == current_user.id %>
+              <% if @isRoom == true %>
+                <%= link_to room_path(@roomId), class: "" do %>
+                  <button id="dm_submit" class="btn btn-outline-success btn-sm">DMを送る</button>
+                <% end %>
+              <% else %>
+                <%= form_for @room, url: rooms_path do |f| %>
+                  <%= fields_for @entry do |e| %>
+                     <%= e.hidden_field :user_id, :value=> @user.id %>
+                  <% end %>
+                  <button type="submit" id="dm_submit" class="btn btn-outline-success btn-sm">DMを送る</button>
+                <% end %>
+              <% end %>
             <% end %>
-          </div>
-        <% end %>
-        <ul class="list-group list-group-flush">
+          <% end %>
+        </div>
+
+        <ul class="list-group list-group-flush mb-5">
           <li class="list-group-item text-center">誕生日：<%= @user.birthday %></li>
           <li class="list-group-item text-center">所属チーム：<%= @user.team %></li>
           <li class="list-group-item text-center">活動地域：<%= @user.active_area %></li>
           <% if @user.id == current_user.id %>
             <li class="list-group-item text-center">Email：<%= @user.email %></li>
           <% end %>
+          <li class="list-group-item text-center"><%= link_to "フォロー", followings_user_path(@user) %>：<%= @user.followings.count %>人をフォロー</li>
+          <li class="list-group-item text-center"><%= link_to "フォロワー", followers_user_path(@user) %>：<%= @user.followers.count %>人のフォロワー</li>
         </ul>
         <% if @user.id == current_user.id %>
           <p><%= link_to "編集する", edit_user_path, class: "btn btn-primary col-md-12 mt-5" %></p>
           <p><%= link_to "退会する", quit_users_path, class: "btn btn-danger col-md-12 my-3" %></p>
         <% end %>
       </div>
+
+      <h3>通算打者成績　打率：<%= @ave.round(3) %></h3>
+      <table class="table table-bordered table-condensed">
+        <tr>
+          <th>打数</th>
+          <th>単打</th>
+          <th>二塁打</th>
+          <th>三塁打</th>
+          <th>本塁打</th>
+          <th>打点</th>
+          <th>得点</th>
+          <th>四死球</th>
+          <th>盗塁</th>
+        </tr>
+        <tr>
+          <td><%= @total_AB %></td>
+          <td><%= @total_single %></td>
+          <td><%= @total_double %></td>
+          <td><%= @total_triple %></td>
+          <td><%= @total_HR %></td>
+          <td><%= @total_RBI %></td>
+          <td><%= @total_run %></td>
+          <td><%= @total_BB_HBP %></td>
+          <td><%= @total_steal %></td>
+        </tr>
+      </table>
+      <h3>通算投手成績　防御率：<%= @era.round(2) %></h3>
+      <table class="table table-bordered table-condensed mb-5">
+        <tr>
+          <th>投球回</th>
+          <th>被安打</th>
+          <th>失点</th>
+          <th>奪三振</th>
+          <th>与四死球</th>
+        </tr>
+        <tr>
+          <td><%= @total_inning %></td>
+          <td><%= @total_hit_allowed %></td>
+          <td><%= @total_run_allowed %></td>
+          <td><%= @total_SO %></td>
+          <td><%= @total_BB_HBP_allowed %></td>
+        </tr>
+      </table>
+
+
+      <div class="jscroll posts my-5">
+        <% @posts.each do |post| %>
+          <div class="card mb-4">
+            <div class="card-body">
+              <%= link_to user_path(post.user) do %>
+                <div class="row align-items-center">
+                  <%= attachment_image_tag(post.user, :profile_image, fallback: "no-image.png", size: "50x50") %>
+                  <h5><%= post.user.name %></h5>
+                </div>
+              <% end %>
+              <p class="card-text">
+                <small class="text-muted"><%= post.created_at.strftime('%Y/%m/%-d/%R') %></small>
+              </p>
+              <p class="card-text">
+                <%= simple_format(post.body) %>
+              </p>
+              <div class="row align-items-center">
+                <div class="far fa-comment col-4 text-center"><%= post.post_comments.count %></div>
+                <div class="col-4 text-center" id="favorite-<%= post.id %>">
+                  <%= render partial: "users/favorites/favorite", locals: {post: post} %>
+                </div>
+                <div class="col-4 text-center"><%= link_to "詳細", post_path(post), class: "btn btn-outline-primary" %></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <%= paginate @posts %>
+
     </div>
   </div>
 </div>

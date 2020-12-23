@@ -1,18 +1,20 @@
 class Users::PostsController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     @post = Post.new
-    @user = current_user
+    @post.post_images.build
   end
 
   def index
-    @posts = Post.all
-    @user = current_user
+    @posts = Post.page(params[:page]).per(5).order(id: "DESC")
   end
 
   def show
     @post = Post.find(params[:id])
     @post_comment = PostComment.new
     @user = current_user
+    @post_images = Post.find(params[:id]).post_images
   end
 
   def create
@@ -25,8 +27,11 @@ class Users::PostsController < ApplicationController
     @post.youtube_url = url
     # ここまで
 
-    @post.save
-    redirect_to posts_path
+    if @post.save
+      redirect_to posts_path
+    else
+      render "new"
+    end
   end
 
   def edit
@@ -41,8 +46,11 @@ class Users::PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    @post.update(post_params)
-    redirect_to posts_path
+    if @post.update(post_params)
+      redirect_to posts_path
+    else
+      render "edit"
+    end
   end
 
   def destroy
@@ -52,9 +60,10 @@ class Users::PostsController < ApplicationController
   end
 
   private
+
   def post_params
     params.require(:post).permit(:AB, :single, :double, :triple, :HR, :RBI, :run, :BB_HBP, :steal,
-    :inning, :hit_allowed, :run_allowed, :SO, :BB_HBP_allowed, :body, :post_image, :youtube_url,
-    :team_against, :score_my_team, :score_team_against, :date, :win_lose)
+                                 :inning, :hit_allowed, :run_allowed, :SO, :BB_HBP_allowed, :body, :youtube_url,
+                                 :team_against, :score_my_team, :score_team_against, :date, :win_lose, post_images_post_images: [])
   end
 end

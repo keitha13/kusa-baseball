@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <div class="row">
+    <%= render "users/users/sidebar" %>
+    <div class="col-6 offset-2 mt-5" id="main">
+      <% @anotherEntries.each do |e| %>
+        <% if e.room.direct_messages.last != nil %>
+        <table class="table table-striped">
+          <tr>
+            <td>
+              <%= link_to room_path(e.room_id) do %>
+                <%= attachment_image_tag e.user, :profile_image, format: 'jpeg', class: "rounded-circle", fallback: "no-image.png", size: "30x30" %>
+                <%= e.user.name %>
+              <% end %>
+            </td>
+            <td>
+              <%= truncate(e.room.direct_messages.last.content, length: 10) %>
+            </td>
+            <td>
+              <small style="color: #C0C0C0;"><%= e.updated_at.strftime("%m/%d %H:%M") %></small>
+            </td>
+            <td>
+              <%= link_to room_path(e.room_id), method: :delete do %>
+                <i class="fas fa-trash btn btn-outline-danger btn-sm"></i>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

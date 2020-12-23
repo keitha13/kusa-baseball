@@ -1,13 +1,20 @@
 
-<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+<nav class="col-2 d-none d-md-block bg-light sidebar">
   <div class="sticky-top">
-    <h5 class="my-5 font-weight-bold text-center">草野球名鑑</h5>
+    <h5 class="my-5 font-weight-bold text-center"><span style="color: #228b22;">草</span>野球名鑑</h5>
     <% if user_signed_in? %>
     <ul class="nav flex-column">
+
       <li class="nav-item mx-auto mt-5"><%= attachment_image_tag(current_user, :profile_image, fallback: "no-image.png", size: "50x50") %></li>
       <li class="nav-item mx-auto mb-5"><%= current_user.name %></li>
       <li class="nav-item mx-auto mt-5 mb-2"><%= link_to "ホーム", posts_path, class: "btn btn-link fas fa-home" %></li>
       <li class="nav-item mx-auto my-2"><%= link_to "プロフィール", user_path(current_user), class: "btn btn-link fas fa-user-circle" %></li>
+      <li class="nav-item mx-auto my-2"><%= link_to "トーク一覧", rooms_path, class: "btn btn-link fas fa-comments" %></li>
+      <li class="nav-item mx-auto my-2">
+        <button type="button" class="btn btn-outline-primary fas fa-search" data-toggle="modal" data-target="#exampleModal">
+          検索
+        </button>
+      </li>
       <li class="nav-item mx-auto my-2"><%= link_to "新規投稿", new_post_path, class: "btn btn-success" %></li>
       <li class="nav-item mx-auto my-2"><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-link fas fa-sign-out-alt" %></li>
     <% elsif admin_signed_in? %>
@@ -17,3 +24,27 @@
     <% end %>
   </div>
 </nav>
+
+<!-- 検索Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <%= form_with url: search_users_path, method: :get, local: true do |f| %>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">検索</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <%= f.text_field :search, placeholder: "検索ワードを入力..." %>
+          <%= select_tag(:option, options_for_select([["選手名", "1"],["投稿","2"],["チーム","3"]])) %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+          <%= f.submit("検索する", class: "btn btn-primary") %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

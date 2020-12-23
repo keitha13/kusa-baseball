@@ -1,0 +1,21 @@
+<p class="<%= direct_message.id %>" style= "margin-top: 0;">
+  <%= attachment_image_tag direct_message.user, :profile_image, fallback: "no-image.png", size: "40x40" %>
+  <%= direct_message.user.name %>
+</p>
+<p class="<%= direct_message.id %>">
+  <span class="balloon1-top">
+    <h7 class="dm_content"><%= direct_message.content %></h7><br>
+    <h7 style="color: #C0C0C0;"><%= direct_message.created_at.strftime("%m/%d %H:%M") %></h7>
+  </span>
+</p><br>
+
+<script>
+    var direct_message = <%= direct_message.user.id %>;
+    var dm_user = document.getElementById('current_user');
+    var current_user = dm_user.getAttribute('data-id')
+    if(direct_message == current_user){
+      $('p.' + <%= direct_message.id %>).css('text-align', 'right');
+    }else{
+      $('p.' + <%= direct_message.id %>).css('text-align', 'left');
+    }
+</script>

@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <%= render "users/users/sidebar" %>
+
+    <div class="col-6 offset-2 mt-5" id="main">
+      <div class="jscroll posts">
+        <% @users.each do |user| %>
+          <div class="card mb-4">
+            <div class="card-body">
+              <%= link_to user_path(user) do %>
+                <div class="row align-items-center">
+                  <%= attachment_image_tag(user, :profile_image, fallback: "no-image.png", size: "50x50") %>
+                  <h5><%= user.name %></h5>
+                </div>
+              <% end %>
+              <p class="card-text">
+                <small class="text-muted"><%= user.created_at.strftime('%Y/%m/%-d') %>に選手登録</small>
+              </p>
+              <div class="card-text text-left">
+                所属チーム：<%= user.team %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <%= paginate @users %>
+      </div>
+    </div>
+  </div>
+</div>

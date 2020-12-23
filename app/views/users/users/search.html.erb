@@ -1,0 +1,84 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <%= render "users/users/sidebar" %>
+
+    <div class="col-6 offset-2 mt-5" id="main">
+
+      <% if @search_option == "1" %>
+        <div class="jscroll posts">
+          <% @users.each do |user| %>
+            <div class="card mb-4">
+              <div class="card-body">
+                <%= link_to user_path(user) do %>
+                  <div class="row align-items-center">
+                    <%= attachment_image_tag(user, :profile_image, fallback: "no-image.png", size: "50x50") %>
+                    <h5><%= user.name %></h5>
+                  </div>
+                <% end %>
+                <p class="card-text">
+                  <small class="text-muted"><%= user.created_at.strftime('%Y/%m/%-d') %>に選手登録</small>
+                </p>
+                <p class="card-text">
+                  所属チーム：<%= user.team %>
+                </p>
+              </div>
+            </div>
+          <% end %>
+          <%= paginate @users %>
+        </div>
+      <% elsif @search_option == "2" %>
+        <div class="jscroll posts">
+          <% @posts.each do |post| %>
+            <div class="card mb-4">
+              <div class="card-body">
+                <%= link_to user_path(post.user) do %>
+                  <div class="row align-items-center">
+                    <%= attachment_image_tag(post.user, :profile_image, fallback: "no-image.png", size: "50x50") %>
+                    <h5><%= post.user.name %></h5>
+                  </div>
+                <% end %>
+                <p class="card-text">
+                  <small class="text-muted"><%= post.created_at.strftime('%Y/%m/%-d/%R') %></small>
+                </p>
+                <p class="card-text">
+                  <%= simple_format(post.body) %>
+                </p>
+                <div class="row align-items-center">
+                  <div class="far fa-comment col-4 text-center"><%= post.post_comments.count %></div>
+                  <div class="col-4 text-center" id="favorite-<%= post.id %>">
+                    <%= render partial: "users/favorites/favorite", locals: {post: post} %>
+                  </div>
+                  <div class="col-4 text-center"><%= link_to "詳細", post_path(post), class: "btn btn-outline-primary" %></div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <%= paginate @posts %>
+        </div>
+      <% else %>
+        <div class="jscroll posts">
+          <% @users.each do |user| %>
+            <div class="card mb-4">
+              <div class="card-body">
+                <%= link_to user_path(user) do %>
+                  <div class="row align-items-center">
+                    <%= attachment_image_tag(user, :profile_image, fallback: "no-image.png", size: "50x50") %>
+                    <h5><%= user.name %></h5>
+                  </div>
+                <% end %>
+                <p class="card-text">
+                  <small class="text-muted"><%= user.created_at.strftime('%Y/%m/%-d') %>に選手登録</small>
+                </p>
+                <p class="card-text">
+                  所属チーム：<%= user.team %>
+                </p>
+              </div>
+            </div>
+          <% end %>
+          <%= paginate @users %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

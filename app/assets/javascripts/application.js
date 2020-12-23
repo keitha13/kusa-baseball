@@ -17,3 +17,27 @@
 //= require bootstrap-sprockets
 //= require_tree .
 //= require popper
+//= require jquery.jscroll.min.js
+
+
+
+
+// post_indexの無限スクロール
+$(document).on('turbolinks:load', function() {
+  $(window).on('scroll', function() {
+        scrollHeight = $(document).height();
+        scrollPosition = $(window).height() + $(window).scrollTop();
+        if ( (scrollHeight - scrollPosition) / scrollHeight <= 0.05) {
+            $('.jscroll').jscroll({
+              contentSelector: '.posts',
+              nextSelector: 'span.next:last a',
+              loadingHtml: '読み込み中'
+            });
+        }
+    });
+    $('.jscroll').jscroll({
+      contentSelector: '.posts',
+      nextSelector: 'span.next:last a',
+      loadingHtml: '読み込み中'
+    });
+  });
