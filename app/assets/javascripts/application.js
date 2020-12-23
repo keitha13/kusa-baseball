@@ -37,6 +37,7 @@ $(document).on('turbolinks:load', function() {
     });
     $('.jscroll').jscroll({
       contentSelector: '.posts',
-      nextSelector: 'span.next:last a'
+      nextSelector: 'span.next:last a',
+      loadingHtml: '読み込み中'
     });
   });

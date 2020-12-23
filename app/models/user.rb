@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  
   has_many :following_relationships, foreign_key: "follower_id", class_name: "FollowRelationship", dependent: :destroy
   has_many :followings, through: :following_relationships
   has_many :follower_relationships, foreign_key: "following_id", class_name: "FollowRelationship", dependent: :destroy
@@ -48,6 +49,7 @@ class User < ApplicationRecord
   def unfollow(other_user)
     following_relationships.find_by(following_id: other_user.id).destroy
   end
+  
 
   # 以下、SNSサインナップ・ログイン
   def self.without_sns_data(auth)
@@ -69,9 +71,6 @@ class User < ApplicationRecord
         provider: auth.provider,
         user_id: user.id
       )
-      pp user
-      pp 'sns ='
-      pp sns
     end
     { user: user, sns: sns }
   end
@@ -100,9 +99,17 @@ class User < ApplicationRecord
       user = info[:user]
       sns = info[:sns]
     end
-    pp user
-    pp 'sns ='
-    pp sns
     { user: user, sns: sns }
   end
+
+
+  # 検索用
+  def User.search(search, search_option)
+    if search_option == "1"
+      User.where(['name LIKE ?', "%#{search}%"])
+    elsif search_option == "3"
+      User.where(['team LIKE ?', "%#{search}%"])
+    end
+  end
+
 end

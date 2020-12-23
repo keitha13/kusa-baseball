@@ -5,7 +5,21 @@
 
     <div class="col-8 offset-1 my-5" id="main">
 
-    <h1>新規投稿</h1>
+    <h1 class="mb-5">新規投稿</h1>
+
+    <!-- エラーメッセージ表示-->
+  	<% if @post.errors.any? %>
+  		<div id="error_explanation">
+  			<h3><%= @post.errors.count %>個のエラーがあります。</h3>
+  			<ul>
+  				<% @post.errors.full_messages.each do |message| %>
+  				<li><%= message %></li>
+  				<% end %>
+  			</ul>
+  		</div>
+  	<% end %>
+  	<!-- エラーメッセージ表示-->
+
     <%= form_with model: @post, url: posts_path,method: :post, local: true do |f| %>
       <div class="my-3">
         <%= f.label :投稿画像 %>
@@ -21,8 +35,8 @@
         <%= f.text_area :body %>
       </div>
 
-      <div class="my-3">
-        <%= f.label :YoutubeのURL %><br>
+      <div class="my-5">
+        <%= f.label :Youtubeのリンク %><br>
         <%= f.text_field :youtube_url, class: "youtube_url" %>
       </div>
 

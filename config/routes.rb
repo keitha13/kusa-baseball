@@ -18,6 +18,11 @@ Rails.application.routes.draw do
       collection do
         get "quit"
         put "out"
+        get "search"
+      end
+      member do
+        get "followings"
+        get "followers"
       end
     end
 
@@ -26,7 +31,9 @@ Rails.application.routes.draw do
       resources :post_comments, only: [:create, :destroy]
     end
 
-    resources :follow_relationships, only: [:create, :destroy]
+    resources :follow_relationships, only: [:create, :destroy] do
+
+    end
     resources :rooms, only: [:index, :show, :create, :destroy]
   end
 end

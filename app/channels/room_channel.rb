@@ -9,6 +9,7 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def speak(data)
-    DirectMessage.create! content: data['direct_message'], user_id: current_user.id, room_id: params['room']
+    entry = Entry.where.not(user_id: current_user.id).where(room_id: params['room']).last
+    DirectMessage.create! content: data['direct_message'], user_id: current_user.id, room_id: params['room'], entry_id: entry.id
   end
 end

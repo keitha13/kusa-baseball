@@ -4,20 +4,23 @@ class Users::RoomsController < ApplicationController
   def index
     @user = current_user
     @currentEntries = current_user.entries
+
     myRoomIds = []
     @currentEntries.each do |entry|
       myRoomIds << entry.room.id
     end
     @anotherEntries = Entry.where(room_id: myRoomIds).where.not(user_id: @user.id).order(created_at: :desc)
+    pp @anotherEntries
   end
 
   def show
     @room = Room.find(params[:id])
     if Entry.where(:user_id => current_user.id, :room_id => @room.id).present?
       @direct_messages = @room.direct_messages
+      pp @direct_messages
       @entries = @room.entries
     else
-      redirect_back(fallback_location: root_path)
+      redirect_back(fallback_location: posts)
     end
   end
 
@@ -31,6 +34,6 @@ class Users::RoomsController < ApplicationController
   def destroy
     room = Room.find(params[:id])
     room.destroy
-    redirect_to users_rooms_path
+    redirect_to rooms_path
   end
 end

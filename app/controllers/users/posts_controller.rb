@@ -7,15 +7,14 @@ class Users::PostsController < ApplicationController
   end
 
   def index
-    @search = Post.ransack(params[:q])
-    # @posts = @search.result
-    @posts = Post.page(params[:page]).per(2)
+    @posts = Post.page(params[:page]).per(5).order(id: "DESC")
   end
 
   def show
     @post = Post.find(params[:id])
     @post_comment = PostComment.new
     @user = current_user
+    @post_images = Post.find(params[:id]).post_images
   end
 
   def create
@@ -31,7 +30,7 @@ class Users::PostsController < ApplicationController
     if @post.save
       redirect_to posts_path
     else
-      render "index"
+      render "new"
     end
   end
 

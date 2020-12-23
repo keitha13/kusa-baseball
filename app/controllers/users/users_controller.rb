@@ -10,7 +10,8 @@ class Users::UsersController < ApplicationController
     @user = User.find(params[:id])
 
     # 通算成績算出用
-    posts = current_user.posts
+    posts = @user.posts
+
     @total_AB = posts.sum(:AB)
     @total_single = posts.sum(:single)
     @total_double = posts.sum(:double)
@@ -80,13 +81,24 @@ class Users::UsersController < ApplicationController
   def followings
     @user = User.find(params[:id])
     @users = @user.followings.page(params[:page])
-    render 'show_followings'
   end
 
   def followers
     @user = User.find(params[:id])
     @users = @user.followers.page(params[:page])
-    render 'show_followers'
+  end
+
+  def search
+    return redirect_back(fallback_location: posts_path) if params[:search].blank?
+
+    @search_option = params[:option]
+    if @search_option == "1"
+      @users = User.search(params[:search], @search_option).page(params[:page]).per(5).order(id: "DESC")
+    elsif @search_option == "2"
+      @posts = Post.search(params[:search], @search_option).page(params[:page]).per(5).order(id: "DESC")
+    else
+      @users = User.search(params[:search], @search_option).page(params[:page]).per(5).order(id: "DESC")
+    end
   end
 
   private

@@ -52,111 +52,150 @@
 
       <h3>成績</h3>
     	<div class="accordion" id="accordionExample">
-      <div class="card">
-        <div class="card-header" id="headingOne">
-          <h5 class="mb-0">
-            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              打撃
-            </button>
-          </h5>
-        </div>
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                打撃
+              </button>
+            </h5>
+          </div>
 
-        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-          <div class="card-body">
-            <table class="table table-bordered table-condensed">
-              <tr>
-                <th>打数</th>
-                <th>単打</th>
-                <th>二塁打</th>
-                <th>三塁打</th>
-                <th>本塁打</th>
-                <th>打点</th>
-                <th>得点</th>
-                <th>四死球</th>
-                <th>盗塁</th>
-              </tr>
-              <tr>
-                <td><%= @post.AB %></td>
-                <td><%= @post.single %></td>
-                <td><%= @post.double %></td>
-                <td><%= @post.triple %></td>
-                <td><%= @post.HR %></td>
-                <td><%= @post.RBI %></td>
-                <td><%= @post.run %></td>
-                <td><%= @post.BB_HBP %></td>
-                <td><%= @post.steal %></td>
-              </tr>
-            </table>
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+              <table class="table table-bordered table-condensed">
+                <tr>
+                  <th>打数</th>
+                  <th>単打</th>
+                  <th>二塁打</th>
+                  <th>三塁打</th>
+                  <th>本塁打</th>
+                  <th>打点</th>
+                  <th>得点</th>
+                  <th>四死球</th>
+                  <th>盗塁</th>
+                </tr>
+                <tr>
+                  <td><%= @post.AB %></td>
+                  <td><%= @post.single %></td>
+                  <td><%= @post.double %></td>
+                  <td><%= @post.triple %></td>
+                  <td><%= @post.HR %></td>
+                  <td><%= @post.RBI %></td>
+                  <td><%= @post.run %></td>
+                  <td><%= @post.BB_HBP %></td>
+                  <td><%= @post.steal %></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingTwo">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                投球
+              </button>
+            </h5>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body">
+              <table class="table table-bordered table-condensed">
+                <tr>
+                  <th>投球回</th>
+                  <th>被安打</th>
+                  <th>失点</th>
+                  <th>奪三振</th>
+                  <th>与四死球</th>
+                </tr>
+                <tr>
+                  <td><%= @post.inning %></td>
+                  <td><%= @post.hit_allowed %></td>
+                  <td><%= @post.run_allowed %></td>
+                  <td><%= @post.SO %></td>
+                  <td><%= @post.BB_HBP_allowed %></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h5 class="mb-0">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                チーム
+              </button>
+            </h5>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+            <div class="card-body">
+              <table class="table table-bordered table-condensed">
+                <tr>
+                  <th>投球回</th>
+                  <th>被安打</th>
+                  <th>失点</th>
+                  <th>奪三振</th>
+                  <th>与四死球</th>
+                </tr>
+                <tr>
+                  <td><%= @post.inning %></td>
+                  <td><%= @post.hit_allowed %></td>
+                  <td><%= @post.run_allowed %></td>
+                  <td><%= @post.SO %></td>
+                  <td><%= @post.BB_HBP_allowed %></td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-header" id="headingTwo">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              投球
-            </button>
-          </h5>
-        </div>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-          <div class="card-body">
-            <table class="table table-bordered table-condensed">
-              <tr>
-                <th>投球回</th>
-                <th>被安打</th>
-                <th>失点</th>
-                <th>奪三振</th>
-                <th>与四死球</th>
-              </tr>
-              <tr>
-                <td><%= @post.inning %></td>
-                <td><%= @post.hit_allowed %></td>
-                <td><%= @post.run_allowed %></td>
-                <td><%= @post.SO %></td>
-                <td><%= @post.BB_HBP_allowed %></td>
-              </tr>
-            </table>
+      <div id="carouselExampleIndicators" class="carousel slide my-5" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <% @post_images.drop(1).count.times do |index| %>
+            <li data-target="#carouselExampleIndicators" data-slide-to="#{index}"></li>
+          <% end %>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <% @post_images.first(1).each do |post_image| %>
+              <%= attachment_image_tag post_image, :post_image, class: "carousel_image col-12" %>
+            <% end %>
           </div>
+          <% @post_images.drop(1).each do |post_image| %>
+            <div class="carousel-item">
+              <%= attachment_image_tag post_image, :post_image, class: "carousel_image col-12" %>
+            </div>
+          <% end %>
         </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
       </div>
-      <div class="card">
-        <div class="card-header" id="headingThree">
-          <h5 class="mb-0">
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              チーム
-            </button>
-          </h5>
-        </div>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-          <div class="card-body">
-            <table class="table table-bordered table-condensed">
-              <tr>
-                <th>投球回</th>
-                <th>被安打</th>
-                <th>失点</th>
-                <th>奪三振</th>
-                <th>与四死球</th>
-              </tr>
-              <tr>
-                <td><%= @post.inning %></td>
-                <td><%= @post.hit_allowed %></td>
-                <td><%= @post.run_allowed %></td>
-                <td><%= @post.SO %></td>
-                <td><%= @post.BB_HBP_allowed %></td>
-              </tr>
-            </table>
-          </div>
-        </div>
-      </div>
-
-
-      <%= attachment_image_tag @post_image, :post_image, size: "100x100", class: "mt-3" %>
 
       <% if @post.youtube_url.present? %>
         <div class="youtube mt-5">
           <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @post.youtube_url%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
       <% end %>
+
+      <!-- エラーメッセージ表示-->
+    	<% if @post_comment.errors.any? %>
+    		<div id="error_explanation">
+    			<h3><%= @post_comment.errors.count %>個のエラーがあります。</h3>
+    			<ul>
+    				<% @post_comment.errors.full_messages.each do |message| %>
+    				<li><%= message %></li>
+    				<% end %>
+    			</ul>
+    		</div>
+    	<% end %>
+    	<!-- エラーメッセージ表示-->
 
   		<!--コメント入力フォーム-->
       <div class="form-group my-5">

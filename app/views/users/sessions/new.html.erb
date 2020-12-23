@@ -1,17 +1,24 @@
 
-
-
-  <h1 class="h3 mb-3 font-wight-normal">ログインする</h1>
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "メールアドレス" %>
-    <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "パスワード" %>
-  <div class="checkbox mb-3">
-    <%= f.check_box :remember_me %>
-    <%= f.label :remember_me %>
+<div class="container">
+  <div class="text-center my-4">
+    <h1 class="h3 mb-3 font-weight-normal">ログインする</h1>
   </div>
-    <%= f.submit "ログイン", class: "btn btn-lg btn-primary btn-block" %>
+  <div class="error">
+    <h3><%= flash[:error] %></h3>
+  </div>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <p><%= render "users/shared/error_messages", resource: resource %></p>
+    <div class="form-label-group">
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "メールアドレス" %>
+    </div>
+    <br>
+    <div class="form-label-group">
+      <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "パスワード" %>
+    </div>
+    <%= f.submit "ログイン", class: "btn btn-primary btn-block my-5" %>
   <% end %>
-<%= render "users/shared/links" %>
-<div class="error">
-  <h3><%= flash[:error] %></h3>
+  <%= render "users/shared/links" %>
+  <%= link_to user_google_oauth2_omniauth_authorize_path do %><% end %>
+
 </div>

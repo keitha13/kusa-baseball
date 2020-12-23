@@ -50,13 +50,15 @@
           <% end %>
         </div>
 
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush mb-5">
           <li class="list-group-item text-center">誕生日：<%= @user.birthday %></li>
           <li class="list-group-item text-center">所属チーム：<%= @user.team %></li>
           <li class="list-group-item text-center">活動地域：<%= @user.active_area %></li>
           <% if @user.id == current_user.id %>
             <li class="list-group-item text-center">Email：<%= @user.email %></li>
           <% end %>
+          <li class="list-group-item text-center"><%= link_to "フォロー", followings_user_path(@user) %>：<%= @user.followings.count %>人をフォロー</li>
+          <li class="list-group-item text-center"><%= link_to "フォロワー", followers_user_path(@user) %>：<%= @user.followers.count %>人のフォロワー</li>
         </ul>
         <% if @user.id == current_user.id %>
           <p><%= link_to "編集する", edit_user_path, class: "btn btn-primary col-md-12 mt-5" %></p>
@@ -107,22 +109,6 @@
         </tr>
       </table>
 
-      <% if user_signed_in? %>
-        <% unless @user.id == current_user.id %>
-          <% if @isRoom == true %>
-            <%= link_to room_path(@roomId) do %>
-              <button id="dm_submit"><i class="far fa-envelope"></i></button>
-            <% end %>
-          <% else %>
-            <%= form_for @room, url: rooms_path do |f| %>
-              <%= fields_for @entry do |e| %>
-                 <%= e.hidden_field :user_id, :value=> @user.id %>
-              <% end %>
-              <button type="submit" id="dm_submit"><i class="far fa-envelope"></i></button>
-            <% end %>
-          <% end %>
-        <% end %>
-      <% end %>
     </div>
   </div>
 </div>

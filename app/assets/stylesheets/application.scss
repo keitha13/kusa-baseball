@@ -17,6 +17,12 @@
 
 @import "font-awesome-sprockets";
 @import "font-awesome";
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap');
+
+
+body {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
 
 input[type="number"] {
         width: 100%;
@@ -49,8 +55,35 @@ nav.pagination {
   display: none;
 }
 
+.home-image {
+  background-image: image-url("home-image.jpg");
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  justify-content: center;
+  align-items: center;
+}
 
+.card-image-left {
+  background-image: image-url("card-left.jpg");
+  background-size: cover;
+  justify-content: center;
+  background-position: center;
+}
 
+.card-image-center {
+  background-image: image-url("card-center.jpg");
+  background-size: cover;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-image-right {
+  background-image: image-url("card-right.jpg");
+  background-size: cover;
+  justify-content: center;
+  align-items: center;
+}
 
 
 

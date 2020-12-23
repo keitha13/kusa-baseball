@@ -5,7 +5,7 @@ class Users::FollowRelationshipsController < ApplicationController
     @user = User.find(params[:follow_relationship][:following_id])
     current_user.follow(@user)
     respond_to do |format|
-      format.html { redirect_back(fallback_location: root_url) }
+      format.html { redirect_back(fallback_location: posts_path) }
       format.js
     end
   end
@@ -14,8 +14,9 @@ class Users::FollowRelationshipsController < ApplicationController
     @user = User.find(params[:follow_relationship][:following_id])
     current_user.unfollow(@user)
     respond_to do |format|
-      format.html { redirect_back(fallback_location: root_url) }
+      format.html { redirect_back(fallback_location: posts_path) }
       format.js
     end
   end
+  
 end
