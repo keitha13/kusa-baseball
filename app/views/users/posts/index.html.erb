@@ -3,14 +3,14 @@
 
     <%= render "users/users/sidebar" %>
 
-    <div class="col-6 offset-2 mt-5" id="main">
+    <div class="col-md-6 offset-md-2 col-10 offset-1 mt-5" id="main">
 
       <% if flash[:notice] %>
         <div class="alert alert-success" role="alert">
           <%= notice %>
         </div>
       <% end %>
-      
+
       <div class="jscroll posts">
         <% @posts.each do |post| %>
           <div class="card mb-4">
@@ -28,19 +28,20 @@
                 <%= simple_format(post.body) %>
               </p>
               <div class="row align-items-center">
-                <div class="far fa-comment col-4 text-center"><%= post.post_comments.count %></div>
-                <div class="col-4 text-center" id="favorite-<%= post.id %>">
+                <div class="far fa-comment col-md-4 col-4 text-center"><%= post.post_comments.count %></div>
+                <div class="col-md-4 col-4 text-center" id="favorite-<%= post.id %>">
                   <%= render partial: "users/favorites/favorite", locals: {post: post} %>
                 </div>
-                <div class="col-4 text-center"><%= link_to "詳細", post_path(post), class: "btn btn-outline-primary" %></div>
+                <div class="col-md-4 col-4 text-center"><%= link_to "詳細", post_path(post), class: "btn btn-outline-primary" %></div>
               </div>
             </div>
           </div>
         <% end %>
         <%= paginate @posts %>
       </div>
-
+      <%= render "users/users/navbar_bottom" %>
     </div>
+
 
   </div>
 </div>
