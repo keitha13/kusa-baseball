@@ -32,8 +32,6 @@ https://docs.google.com/spreadsheets/d/1uI1DcNE0ivCGq3tqtAXIBNYNMSJ6Aq0_wHvhuWHY
 - IDE：Cloud9
 
 ## 使用素材
-- LOGO MAKER <https://logo-maker.stores.jp/>
-- O-DAN <https://o-dan.net/ja/>
 - Morguefile <https://morguefile.com/>
 - fontawesome <https://fontawesome.com/>
 - 半透過マルチアイコンfavicon.icoを作ろう! <https://ao-system.net/alphaicon/>
