@@ -1,6 +1,6 @@
-<%= render "users/homes/header"  %>
+<%= render "users/homes/header" %>
 
-<main role="main">
+<main role="main" class="mb-5">
   <% if flash[:notice] %>
     <div class="alert alert-warning" role="alert">
       <%= notice %>
@@ -58,3 +58,4 @@
     </div>
   </div>
 </main>
+<%= render "users/homes/footer" %>

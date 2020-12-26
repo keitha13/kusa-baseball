@@ -24,10 +24,18 @@ body {
   font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
+footer {
+  padding-top: 3rem;
+}
+
 input[type="number"] {
         width: 100%;
         height: 25px;
     }
+
+.container-fluid {
+  padding-bottom: 5rem;
+}
 
 .inning {
 	width: 100%;
@@ -61,7 +69,7 @@ nav.pagination {
   height: 100%;
   background-size: cover;
   justify-content: center;
-  align-items: center;
+  background-position: bottom;
 }
 
 .card-image-left {

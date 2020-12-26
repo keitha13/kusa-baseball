@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <%= render "users/users/sidebar" %>
-    <div class="col-6 offset-2 mt-5" id="main">
+    <div class="col-md-6 offset-md-2 col-12 mt-5" id="main">
       <% @anotherEntries.each do |e| %>
         <% if e.room.direct_messages.last != nil %>
         <table class="table table-striped">
@@ -30,3 +30,5 @@
     </div>
   </div>
 </div>
+
+<%= render "users/users/footer" %>

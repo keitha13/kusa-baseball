@@ -1,0 +1,12 @@
+<footer class="fixed-bottom d-block d-md-none">
+  <div class="p-1 px-4 bg-light border-top">
+    <nav class="nav nav-pills nav-fill">
+      <%= link_to "", posts_path, class: "btn nav-item nav-link fas fa-home" %>
+      <%= link_to "", user_path(current_user), class: "btn nav-item nav-link fas fa-user-circle" %>
+      <%= link_to "", rooms_path, class: "btn nav-item nav-link fas fa-comments" %>
+      <%= link_to "", new_post_path, class: "btn nav-item nav-link fas fa-plus" %>
+      <%= link_to "", destroy_user_session_path, method: :delete, class: "btn nav-item nav-link fas fa-sign-out-alt" %>
+      <button type="button" class="btn nav-item nav-link fas fa-search" data-toggle="modal" data-target="#exampleModal"></button>
+    </nav>
+  </div>
+</footer>

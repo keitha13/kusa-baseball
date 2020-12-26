@@ -3,7 +3,7 @@
   <div class="row">
     <%= render "users/users/sidebar", user: @user %>
 
-    <div class="col-8 offset-1 mt-5" id="main">
+    <div class="col-md-8 offset-md-1 col-10 offset-1 mt-5" id="main">
       <div class="card mb-4 border-0 ">
         <div class="card-body text-center">
           <div class="card-text">
@@ -18,7 +18,7 @@
           </p>
         </div>
       </div>
-      <div class="card border-0 col-6 offset-3">
+      <div class="card border-0 col-md-6 offset-md-3">
         <div class="text-center">
           <% if user_signed_in? && @user != current_user %>
             <div id="follow_form">
@@ -141,3 +141,5 @@
     </div>
   </div>
 </div>
+
+<%= render "users/users/footer" %>
