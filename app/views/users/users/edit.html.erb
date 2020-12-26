@@ -2,7 +2,7 @@
   <div class="row">
     <%= render "users/users/sidebar", user: @user %>
 
-    <div class="col-8 offset-1 mt-5" id="main">
+    <div class="col-md-8 offset-md-1 mt-5" id="main">
 
       <!-- エラーメッセージ表示-->
     	<% if @user.errors.any? %>
@@ -43,6 +43,8 @@
     </div>
   </div>
 </div>
+
+<%= render "users/users/footer" %>
 
 <script>
   $('#user_profile_image').on('change', function (e) {
