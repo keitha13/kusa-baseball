@@ -22,6 +22,19 @@
 ・選手同士でチャットなどの交流
 
 ### 機能一覧
+- ユーザー認証
+- SNS認証/ログイン(Google)
+- 条件検索(ユーザー名、投稿文、チーム名)
+- 非同期通信
+- いいね
+- フォロー
+- 投稿へのコメント
+- リアルタイムチャット
+- 無限スクロール
+- 投稿画像のプレビュー
+- 通算成績の自動算出
+
+以下詳細
 https://docs.google.com/spreadsheets/d/1uI1DcNE0ivCGq3tqtAXIBNYNMSJ6Aq0_wHvhuWHYRy0/edit?usp=sharing
 
 ## 開発環境
