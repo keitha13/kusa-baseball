@@ -25,7 +25,7 @@ class Users::UsersController < ApplicationController
 
     total_hits = @total_single + @total_double + @total_triple + @total_HR
     @ave = total_hits / @total_AB.to_f
-    
+
     @era = @total_run_allowed * 9.00 / @total_inning
 
     # チャット
@@ -72,11 +72,14 @@ class Users::UsersController < ApplicationController
   end
 
   def out
-    @user = current_user
-    @user.update(is_active: false)
-    reset_session
-    flash[:notice] = "ありがとうございました。またのご利用を心よりお待ちしております。"
-    redirect_to root_path
+    if @user.email == 'guest@guest.com'
+      redirect_to posts_path, alert: 'ゲストユーザーの変更・削除はできません。'
+    elsif @user == current_user
+      @user.update(is_active: false)
+      reset_session
+      flash[:notice] = "ありがとうございました。またのご利用を心よりお待ちしております。"
+      redirect_to root_path
+    end
   end
 
   def followings

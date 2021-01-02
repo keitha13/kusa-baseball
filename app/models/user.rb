@@ -104,6 +104,13 @@ class User < ApplicationRecord
     { user: user, sns: sns }
   end
 
+  # ゲストログイン用
+  def self.guest
+    find_or_create_by!(email: 'guest@guest.com', name: 'ゲスト') do |user|
+      user.password = SecureRandom.urlsafe_base64
+    end
+  end
+
 
   # 検索用
   def User.search(search, search_option)

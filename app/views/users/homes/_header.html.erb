@@ -7,6 +7,7 @@
     <nav class="my-2 my-md-0 mr-md-3">
 
       <%= link_to '初めての方', root_path(anchor: 'about'), class: 'p-2 text-dark' %>
+      <%= link_to "ゲストログイン", users_guest_sign_in_path, method: :post, class: "btn btn-outline-secondary my-2" %>
       <%= link_to "新規登録", new_user_registration_path, class: "btn btn-outline-warning my-2" %>
       <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary my-2" %>
     </nav>
