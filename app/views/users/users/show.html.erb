@@ -50,20 +50,40 @@
           <% end %>
         </div>
 
-        <ul class="list-group list-group-flush mb-5">
-          <li class="list-group-item text-center">誕生日：<%= @user.birthday %></li>
-          <li class="list-group-item text-center">所属チーム：<%= @user.team %></li>
-          <li class="list-group-item text-center">活動地域：<%= @user.active_area %></li>
-          <% if @user.id == current_user.id %>
-            <li class="list-group-item text-center">Email：<%= @user.email %></li>
-          <% end %>
-          <li class="list-group-item text-center"><%= link_to "フォロー", followings_user_path(@user) %>：<%= @user.followings.count %>人をフォロー</li>
-          <li class="list-group-item text-center"><%= link_to "フォロワー", followers_user_path(@user) %>：<%= @user.followers.count %>人のフォロワー</li>
-        </ul>
         <% if @user.id == current_user.id %>
-          <p><%= link_to "編集する", edit_user_path, class: "btn btn-primary col-md-12 mt-5" %></p>
+          <p><%= link_to "編集する", edit_user_path, class: "btn btn-primary col-md-12" %></p>
           <p><%= link_to "退会する", quit_users_path, class: "btn btn-danger col-md-12 my-3" %></p>
         <% end %>
+      </div>
+
+      <div class="row my-5">
+        <div class="col-4">
+          <div class="list-group list-group-horizontal" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">一般</a>
+            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">打撃能力</a>
+            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">投手能力</a>
+            <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">守備能力</a>
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+              <ul class="list-group list-group-flush mb-5">
+                <li class="list-group-item text-center">誕生日：<%= @user.birthday %></li>
+                <li class="list-group-item text-center">所属チーム：<%= @user.team %></li>
+                <li class="list-group-item text-center">活動地域：<%= @user.active_area %></li>
+                <% if @user.id == current_user.id %>
+                  <li class="list-group-item text-center">Email：<%= @user.email %></li>
+                <% end %>
+                <li class="list-group-item text-center"><%= link_to "フォロー", followings_user_path(@user) %>：<%= @user.followings.count %></li>
+                <li class="list-group-item text-center"><%= link_to "フォロワー", followers_user_path(@user) %>：<%= @user.followers.count %></li>
+              </ul>
+            </div>
+            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
+            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
+            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+          </div>
+        </div>
       </div>
 
       <h3>通算打者成績　打率：<%= @ave.round(3) %></h3>
