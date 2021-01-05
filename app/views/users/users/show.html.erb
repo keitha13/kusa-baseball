@@ -69,9 +69,10 @@
           <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
               <ul class="list-group list-group-flush mb-5">
-                <li class="list-group-item text-center">誕生日：<%= @user.birthday %></li>
+                <li class="list-group-item text-center">ポジション：<%= @user.position %></li>
                 <li class="list-group-item text-center">所属チーム：<%= @user.team %></li>
                 <li class="list-group-item text-center">活動地域：<%= @user.active_area %></li>
+                <li class="list-group-item text-center">誕生日：<%= @user.birthday %></li>
                 <% if @user.id == current_user.id %>
                   <li class="list-group-item text-center">Email：<%= @user.email %></li>
                 <% end %>
@@ -129,7 +130,6 @@
         </tr>
       </table>
 
-
       <div class="jscroll posts my-5">
         <% @posts.each do |post| %>
           <div class="card mb-4">
@@ -148,17 +148,18 @@
               </p>
               <div class="row align-items-center">
                 <div class="far fa-comment col-4 text-center"><%= post.post_comments.count %></div>
-                <div class="col-4 text-center" id="favorite-<%= post.id %>">
-                  <%= render partial: "users/favorites/favorite", locals: {post: post} %>
-                </div>
+                  <div class="col-4 text-center" id="favorite-<%= post.id %>">
+                    <%= render partial: "users/favorites/favorite", locals: {post: post} %>
+                  </div>
                 <div class="col-4 text-center"><%= link_to "詳細", post_path(post), class: "btn btn-outline-primary" %></div>
               </div>
             </div>
           </div>
         <% end %>
         <%= paginate @posts %>
-
+      </div>
     </div>
+
   </div>
 </div>
 

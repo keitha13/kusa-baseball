@@ -61,6 +61,7 @@ class Users::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+
     if @user.update(user_params)
       redirect_to user_path(@user)
     else
@@ -108,8 +109,7 @@ class Users::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :birthday, :profile_image, :introduction,
-                                 :active_area, :email, :team)
+    params.require(:user).permit(:name, :birthday, :profile_image, :introduction, :active_area, :email, :team, :position)
   end
 
   def ensure_correct_user
