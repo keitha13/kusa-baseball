@@ -38,6 +38,15 @@
             <li class="list-group-item text-center">誕生日：<%= f.date_select :birthday, use_month_numbers: true, start_year: 1920, end_year: (Time.now.year), default: Date.new(1989, 1, 1), class: "birthday" %></li>
             <li class="list-group-item text-center">Email：<%= f.text_field :email, class: "email" %></li>
           </ul>
+          <br>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item text-center">ミート：<%= f.select :meet, User.skills.keys, {prompt: '選択してください'} %></li>
+            <li class="list-group-item text-center">パワー：<%= f.select :power, User.skills.keys, {prompt: '選択してください'} %></li>
+            <li class="list-group-item text-center">走力：<%= f.select :run_speed, User.skills.keys, {prompt: '選択してください'} %></li>
+            <li class="list-group-item text-center">肩力：<%= f.select :arm, User.skills.keys, {prompt: '選択してください'} %></li>
+            <li class="list-group-item text-center">守備：<%= f.select :defense, User.skills.keys, {prompt: '選択してください'} %></li>
+            <li class="list-group-item text-center">捕球：<%= f.select :catch, User.skills.keys, {prompt: '選択してください'} %></li>
+          </ul>
           <%= f.submit('編集内容を保存する', class: 'btn btn-primary col-6 mx-auto my-5')%>
         </div>
       <% end %>

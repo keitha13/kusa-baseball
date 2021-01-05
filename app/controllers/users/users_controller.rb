@@ -109,7 +109,8 @@ class Users::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :birthday, :profile_image, :introduction, :active_area, :email, :team, :position)
+    params.require(:user).permit(:name, :birthday, :profile_image, :introduction, :active_area, :email, :team, :position,
+                                  :meet, :power, :run_speed, :arm, :defense, :catch)
   end
 
   def ensure_correct_user
