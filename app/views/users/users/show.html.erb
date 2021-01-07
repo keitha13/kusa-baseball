@@ -82,7 +82,7 @@
 
             <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
               <ul class="list-group list-group-flush">
-                <li class="list-group-item text-center">ミート：<%= @user.meet %></li>
+                <li class="list-group-item text-center">ミート：<%= @user.meet_before_type_cast %></li>
                 <li class="list-group-item text-center">パワー：<%= @user.power %></li>
                 <li class="list-group-item text-center">走力：<%= @user.run_speed %></li>
                 <li class="list-group-item text-center">肩力：<%= @user.arm %></li>
@@ -90,7 +90,9 @@
                 <li class="list-group-item text-center">捕球：<%= @user.catch %></li>
               </ul>
             </div>
-            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
+            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+              <canvas id="myChart"></canvas>
+            </div>
           </div>
         </div>
       </div>
@@ -172,3 +174,31 @@
 </div>
 
 <%= render "users/users/footer" %>
+
+<script>
+  var ctx = document.getElementById("myChart");
+  var myChart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ["ミート", "パワー", "走力", "肩力", "守備", "捕球"],
+      datasets:
+      [
+          {
+          label: "野手能力",
+          backgroundColor: 'rgba(102,255,129,0.2)',
+          borderColor: 'rgba(122,255,129,0.2)',
+          data: [<%= @user.meet_before_type_cast %>, 4, 4, 4, 8, 6]
+          }
+      ]
+    },
+    options: {
+        scale: {
+            ticks: {
+                suggestedMin: 0,
+                suggestedMax: 8,
+                display: false
+            }
+        }
+    }
+  });
+</script>

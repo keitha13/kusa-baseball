@@ -40,7 +40,7 @@ class User < ApplicationRecord
   }
 
   enum skills: {
-    S: 1, A: 2, B: 3, C: 4, D: 5, E: 6, F: 7, G: 8
+    S: 8, A: 7, B: 6, C: 5, D: 4, E: 3, F: 2, G: 1
   }
 
   # 以下、退会用
