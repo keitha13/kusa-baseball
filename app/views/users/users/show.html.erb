@@ -56,43 +56,82 @@
         <% end %>
       </div>
 
-      <div class="row my-5">
-        <div class="col-4">
-          <div class="list-group" id="list-tab" role="tablist">
-            <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">プロフィール</a>
-            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">野手能力</a>
-            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">投手能力</a>
-          </div>
-        </div>
-        <div class="col-8">
-          <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item text-center">ポジション：<%= @user.position %></li>
-                <li class="list-group-item text-center">所属チーム：<%= @user.team %></li>
-                <li class="list-group-item text-center">活動地域：<%= @user.active_area %></li>
-                <li class="list-group-item text-center">誕生日：<%= @user.birthday %></li>
-                <% if @user.id == current_user.id %>
-                  <li class="list-group-item text-center">Email：<%= @user.email %></li>
-                <% end %>
-                <li class="list-group-item text-center"><%= link_to "フォロー", followings_user_path(@user) %>：<%= @user.followings.count %></li>
-                <li class="list-group-item text-center"><%= link_to "フォロワー", followers_user_path(@user) %>：<%= @user.followers.count %></li>
-              </ul>
-            </div>
+      <div class="my-5">
 
-            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item text-center">ミート：<%= @user.meet_before_type_cast %></li>
-                <li class="list-group-item text-center">パワー：<%= @user.power %></li>
-                <li class="list-group-item text-center">走力：<%= @user.run_speed %></li>
-                <li class="list-group-item text-center">肩力：<%= @user.arm %></li>
-                <li class="list-group-item text-center">守備：<%= @user.defense %></li>
-                <li class="list-group-item text-center">捕球：<%= @user.catch %></li>
-              </ul>
-            </div>
-            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
-              <canvas id="myChart"></canvas>
-            </div>
+        <ul class="nav nav-tabs justify-content-center nav-pills">
+          <li class="nav-item">
+            <a href="#profile" class="nav-link active" data-toggle="tab">プロフィール</a>
+          </li>
+          <li class="nav-item">
+            <a href="#fielder" class="nav-link" data-toggle="tab">野手能力</a>
+          </li>
+          <li class="nav-item">
+            <a href="#pitcher" class="nav-link" data-toggle="tab">投手能力</a>
+          </li>
+        </ul>
+
+        <div class="tab-content my-5">
+          <div id="profile" class="tab-pane active fade show">
+
+            <table class="table table-borderless">
+              <tbody class="text-center">
+                <tr>
+                  <th scope="row">ポジション</th>
+                  <td><%= @user.position %></td>
+                </tr>
+                <tr>
+                  <th scope="row">所属チーム</th>
+                  <td><%= @user.team %></td>
+                </tr>
+                <tr>
+                  <th scope="row">活動地域</th>
+                  <td><%= @user.active_area %></td>
+                </tr>
+                <tr>
+                  <th scope="row">誕生日</th>
+                  <td><%= @user.birthday %></td>
+                </tr>
+                <% if @user.id == current_user.id %>
+                  <tr>
+                    <th scope="row">Email</th>
+                    <td><%= @user.email %></td>
+                  </tr>
+                <% end %>
+                <tr>
+                  <th scope="row"><%= link_to "フォロー", followings_user_path(@user) %></th>
+                  <td><%= @user.followings.count %></td>
+                </tr>
+                <tr>
+                  <th scope="row"><%= link_to "フォロワー", followers_user_path(@user) %></th>
+                  <td><%= @user.followers.count %></td>
+                </tr
+              </tbody>
+            </table>
+          </div>
+          <div id="fielder" class="tab-pane fade">
+            <table class="table table-borderless table-sm text-center col-8 offset-2">
+              <tr>
+                <th>ミート</th>
+                <th>パワー</th>
+                <th>走力</th>
+                <th>肩力</th>
+                <th>守備</th>
+                <th>捕球</th>
+              </tr>
+              <tr>
+                <td><%= @user.meet %></td>
+                <td><%= @user.power %></td>
+                <td><%= @user.run_speed %></td>
+                <td><%= @user.arm %></td>
+                <td><%= @user.defense %></td>
+                <td><%= @user.catch %></td>
+              </tr>
+            </table>
+            <br>
+            <canvas id="myChart"></canvas>
+          </div>
+          <div id="pitcher" class="tab-pane fade">
+
           </div>
         </div>
       </div>
@@ -187,18 +226,18 @@
           label: "野手能力",
           backgroundColor: 'rgba(102,255,129,0.2)',
           borderColor: 'rgba(122,255,129,0.2)',
-          data: [<%= @user.meet_before_type_cast %>, 4, 4, 4, 8, 6]
+          data: [8, 2, 5, 3, 7, 6]
           }
       ]
     },
     options: {
-        scale: {
-            ticks: {
-                suggestedMin: 0,
-                suggestedMax: 8,
-                display: false
-            }
+      scale: {
+        ticks: {
+          suggestedMin: 0,
+          suggestedMax: 8,
+          display: false
         }
+      }
     }
   });
 </script>
