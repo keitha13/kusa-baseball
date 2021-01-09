@@ -73,13 +73,12 @@ class Users::UsersController < ApplicationController
   end
 
   def out
-    if @user.email == 'guest@guest.com'
-      redirect_to posts_path, alert: 'ゲストユーザーの変更・削除はできません。'
+    if current_user.email == 'guest@guest.com'
+      redirect_to user_path(current_user), notice: "ゲストユーザーの退会はできません。"
     elsif @user == current_user
       @user.update(is_active: false)
       reset_session
-      flash[:notice] = "ありがとうございました。またのご利用を心よりお待ちしております。"
-      redirect_to root_path
+      redirect_to root_path, notice: "ありがとうございました。またのご利用を心よりお待ちしております。"
     end
   end
 
