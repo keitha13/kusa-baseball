@@ -25,6 +25,12 @@ class Users::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
 
+  def new_guest
+    user = User.guest
+    sign_in user
+    redirect_to posts_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
+
   before_action :reject_user, only: [:create]
 
   protected
@@ -47,4 +53,6 @@ class Users::SessionsController < Devise::SessionsController
       redirect_to new_user_session_path
     end
   end
+
+
 end

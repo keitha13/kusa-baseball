@@ -28,7 +28,7 @@ class Users::PostsController < ApplicationController
     # ここまで
 
     if @post.save
-      redirect_to posts_path
+      redirect_to posts_path, notice: "投稿に成功しました。"
     else
       render "new"
     end

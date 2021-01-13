@@ -36,7 +36,7 @@
             <% unless @user.id == current_user.id %>
               <% if @isRoom == true %>
                 <%= link_to room_path(@roomId), class: "" do %>
-                  <button id="dm_submit" class="btn btn-outline-success btn-sm">DMを送る</button>
+                  <button id="dm_submit" class="btn btn-outline-success">DMを送る</button>
                 <% end %>
               <% else %>
                 <%= form_for @room, url: rooms_path do |f| %>
@@ -50,20 +50,97 @@
           <% end %>
         </div>
 
-        <ul class="list-group list-group-flush mb-5">
-          <li class="list-group-item text-center">誕生日：<%= @user.birthday %></li>
-          <li class="list-group-item text-center">所属チーム：<%= @user.team %></li>
-          <li class="list-group-item text-center">活動地域：<%= @user.active_area %></li>
-          <% if @user.id == current_user.id %>
-            <li class="list-group-item text-center">Email：<%= @user.email %></li>
-          <% end %>
-          <li class="list-group-item text-center"><%= link_to "フォロー", followings_user_path(@user) %>：<%= @user.followings.count %>人をフォロー</li>
-          <li class="list-group-item text-center"><%= link_to "フォロワー", followers_user_path(@user) %>：<%= @user.followers.count %>人のフォロワー</li>
-        </ul>
         <% if @user.id == current_user.id %>
-          <p><%= link_to "編集する", edit_user_path, class: "btn btn-primary col-md-12 mt-5" %></p>
+
+          <% if flash[:notice] %>
+            <div class="alert alert-danger" role="alert">
+              <%= notice %>
+            </div>
+          <% end %>
+
+          <p><%= link_to "編集する", edit_user_path, class: "btn btn-primary col-md-12" %></p>
           <p><%= link_to "退会する", quit_users_path, class: "btn btn-danger col-md-12 my-3" %></p>
         <% end %>
+      </div>
+
+      <div class="my-5">
+
+        <ul class="nav nav-tabs justify-content-center nav-pills">
+          <li class="nav-item">
+            <a href="#profile" class="nav-link active" data-toggle="tab">プロフィール</a>
+          </li>
+          <li class="nav-item">
+            <a href="#fielder" class="nav-link" data-toggle="tab">野手能力</a>
+          </li>
+          <li class="nav-item">
+            <a href="#pitcher" class="nav-link" data-toggle="tab">投手能力</a>
+          </li>
+        </ul>
+
+        <div class="tab-content my-5">
+          <div id="profile" class="tab-pane active fade show">
+
+            <table class="table table-borderless">
+              <tbody class="text-center">
+                <tr>
+                  <th scope="row">ポジション</th>
+                  <td><%= @user.position %></td>
+                </tr>
+                <tr>
+                  <th scope="row">所属チーム</th>
+                  <td><%= @user.team %></td>
+                </tr>
+                <tr>
+                  <th scope="row">活動地域</th>
+                  <td><%= @user.active_area %></td>
+                </tr>
+                <tr>
+                  <th scope="row">誕生日</th>
+                  <td><%= @user.birthday %></td>
+                </tr>
+                <% if @user.id == current_user.id %>
+                  <tr>
+                    <th scope="row">Email</th>
+                    <td><%= @user.email %></td>
+                  </tr>
+                <% end %>
+                <tr>
+                  <th scope="row"><%= link_to "フォロー", followings_user_path(@user) %></th>
+                  <td><%= @user.followings.count %></td>
+                </tr>
+                <tr>
+                  <th scope="row"><%= link_to "フォロワー", followers_user_path(@user) %></th>
+                  <td><%= @user.followers.count %></td>
+                </tr
+              </tbody>
+            </table>
+          </div>
+          <div id="fielder" class="tab-pane fade">
+            <table class="table table-borderless table-sm text-center col-8 offset-2">
+              <tr>
+                <th>ミート</th>
+                <th>パワー</th>
+                <th>走力</th>
+                <th>肩力</th>
+                <th>守備</th>
+                <th>捕球</th>
+              </tr>
+              <tr>
+                <td><%= @user.meet %></td>
+                <td><%= @user.power %></td>
+                <td><%= @user.run_speed %></td>
+                <td><%= @user.arm %></td>
+                <td><%= @user.defense %></td>
+                <td><%= @user.catch %></td>
+              </tr>
+            </table>
+            <br>
+            <canvas id="myChart"></canvas>
+          </div>
+          <div id="pitcher" class="tab-pane fade">
+            投手能力のビューを実装
+          </div>
+        </div>
       </div>
 
       <h3>通算打者成績　打率：<%= @ave.round(3) %></h3>
@@ -109,7 +186,6 @@
         </tr>
       </table>
 
-
       <div class="jscroll posts my-5">
         <% @posts.each do |post| %>
           <div class="card mb-4">
@@ -128,18 +204,47 @@
               </p>
               <div class="row align-items-center">
                 <div class="far fa-comment col-4 text-center"><%= post.post_comments.count %></div>
-                <div class="col-4 text-center" id="favorite-<%= post.id %>">
-                  <%= render partial: "users/favorites/favorite", locals: {post: post} %>
-                </div>
+                  <div class="col-4 text-center" id="favorite-<%= post.id %>">
+                    <%= render partial: "users/favorites/favorite", locals: {post: post} %>
+                  </div>
                 <div class="col-4 text-center"><%= link_to "詳細", post_path(post), class: "btn btn-outline-primary" %></div>
               </div>
             </div>
           </div>
         <% end %>
         <%= paginate @posts %>
-
+      </div>
     </div>
+
   </div>
 </div>
 
 <%= render "users/users/footer" %>
+
+<script>
+  var ctx = document.getElementById("myChart");
+  var myChart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: ["ミート", "パワー", "走力", "肩力", "守備", "捕球"],
+      datasets:
+      [
+          {
+          label: "野手能力",
+          backgroundColor: 'rgba(102,255,129,0.2)',
+          borderColor: 'rgba(122,255,129,0.2)',
+          data: [8, 2, 5, 3, 7, 6]
+          }
+      ]
+    },
+    options: {
+      scale: {
+        ticks: {
+          suggestedMin: 0,
+          suggestedMax: 8,
+          display: false
+        }
+      }
+    }
+  });
+</script>

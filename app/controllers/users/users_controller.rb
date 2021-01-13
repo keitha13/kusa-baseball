@@ -25,7 +25,7 @@ class Users::UsersController < ApplicationController
 
     total_hits = @total_single + @total_double + @total_triple + @total_HR
     @ave = total_hits / @total_AB.to_f
-    
+
     @era = @total_run_allowed * 9.00 / @total_inning
 
     # チャット
@@ -61,6 +61,7 @@ class Users::UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+
     if @user.update(user_params)
       redirect_to user_path(@user)
     else
@@ -72,11 +73,13 @@ class Users::UsersController < ApplicationController
   end
 
   def out
-    @user = current_user
-    @user.update(is_active: false)
-    reset_session
-    flash[:notice] = "ありがとうございました。またのご利用を心よりお待ちしております。"
-    redirect_to root_path
+    if current_user.email == 'guest@guest.com'
+      redirect_to user_path(current_user), notice: "ゲストユーザーの退会はできません。"
+    elsif @user == current_user
+      @user.update(is_active: false)
+      reset_session
+      redirect_to root_path, notice: "ありがとうございました。またのご利用を心よりお待ちしております。"
+    end
   end
 
   def followings
@@ -105,8 +108,8 @@ class Users::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :birthday, :profile_image, :introduction,
-                                 :active_area, :email, :team)
+    params.require(:user).permit(:name, :birthday, :profile_image, :introduction, :active_area, :email, :team, :position,
+                                  :meet, :power, :run_speed, :arm, :defense, :catch)
   end
 
   def ensure_correct_user

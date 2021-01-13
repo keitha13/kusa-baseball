@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
+         :recoverable, :rememberable, :validatable, :timeoutable,
          :omniauthable, omniauth_providers: %i(google_oauth2)
 
   validates :name, presence: true
@@ -32,6 +32,15 @@ class User < ApplicationRecord
     徳島県: 36, 香川県: 37, 愛媛県: 38, 高知県: 39,
     福岡県: 40, 佐賀県: 41, 長崎県: 42, 熊本県: 43, 大分県: 44, 宮崎県: 45, 鹿児島県: 46, 沖縄県: 47,
     海外: 48,
+  }
+
+  enum positions: {
+    ピッチャー: 1, キャッチャー: 2, ファースト: 3, セカンド: 4, サード: 5, ショート: 6, レフト: 7,
+    センター: 8, ライト: 9
+  }
+
+  enum skills: {
+    S: 8, A: 7, B: 6, C: 5, D: 4, E: 3, F: 2, G: 1
   }
 
   # 以下、退会用
@@ -102,6 +111,13 @@ class User < ApplicationRecord
       sns = info[:sns]
     end
     { user: user, sns: sns }
+  end
+
+  # ゲストログイン用
+  def self.guest
+    find_or_create_by!(email: 'guest@guest.com', name: 'ゲスト') do |user|
+      user.password = SecureRandom.urlsafe_base64
+    end
   end
 
 
