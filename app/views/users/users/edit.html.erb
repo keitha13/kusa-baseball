@@ -35,7 +35,7 @@
             <li class="list-group-item text-center">ポジション：<%= f.select :position, User.positions.keys, {prompt: '選択してください'} %></li>
             <li class="list-group-item text-center">所属チーム：<%= f.text_field :team, class: "team" %></li>
             <li class="list-group-item text-center">活動地域：<%= f.select :active_area, User.active_areas.keys, {prompt: '選択してください'}, class: "active_area" %></li>
-            <li class="list-group-item text-center">誕生日：<%= f.date_select :birthday, use_month_numbers: true, start_year: 1920, end_year: (Time.now.year), default: Date.new(1989, 1, 1), class: "birthday" %></li>
+            <li class="list-group-item text-center">誕生日：<%= f.date_select :birthday, use_month_numbers: true, start_year: 1921, end_year: (Time.now.year), default: Date.new(1989, 1, 1), class: "birthday" %></li>
             <li class="list-group-item text-center">Email：<%= f.text_field :email, class: "email" %></li>
           </ul>
           <br>
