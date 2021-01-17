@@ -138,7 +138,18 @@
             <canvas id="myChart"></canvas>
           </div>
           <div id="pitcher" class="tab-pane fade">
-            投手能力のビューを実装
+            <table class="table table-borderless table-sm text-center col-8 offset-2">
+              <tr>
+                <th>球速</th>
+                <th>コントロール</th>
+                <th>スタミナ</th>
+              </tr>
+              <tr>
+                <td><%= @user.ball_speed %>km/h</td>
+                <td><%= @user.control %></td>
+                <td><%= @user.stamina %></td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>

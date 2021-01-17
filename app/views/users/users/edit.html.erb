@@ -47,6 +47,12 @@
             <li class="list-group-item text-center">守備：<%= f.select :defense, User.skills.keys, {prompt: '選択してください'} %></li>
             <li class="list-group-item text-center">捕球：<%= f.select :catch, User.skills.keys, {prompt: '選択してください'} %></li>
           </ul>
+          <br>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item text-center">球速：<%= f.number_field :ball_speed, min: 60, max: 170 %></li>
+            <li class="list-group-item text-center">コントロール：<%= f.select :control, User.skills.keys, {prompt: '選択してください'} %></li>
+            <li class="list-group-item text-center">スタミナ：<%= f.select :stamina, User.skills.keys, {prompt: '選択してください'} %></li>
+          </ul>
           <%= f.submit('編集内容を保存する', class: 'btn btn-primary col-6 mx-auto my-5')%>
         </div>
       <% end %>
