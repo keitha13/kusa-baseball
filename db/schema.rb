@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_17_012209) do
+ActiveRecord::Schema.define(version: 2021_01_20_070259) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -151,6 +151,16 @@ ActiveRecord::Schema.define(version: 2021_01_17_012209) do
     t.string "ball_speed"
     t.string "control"
     t.string "stamina"
+    t.integer "new_active_area"
+    t.integer "new_position"
+    t.integer "new_meet"
+    t.integer "new_power"
+    t.integer "new_run_speed"
+    t.integer "new_arm"
+    t.integer "new_defense"
+    t.integer "new_catch"
+    t.integer "new_control"
+    t.integer "new_stamina"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

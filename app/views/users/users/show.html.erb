@@ -84,7 +84,7 @@
               <tbody class="text-center">
                 <tr>
                   <th scope="row">ポジション</th>
-                  <td><%= @user.position %></td>
+                  <td><%= @user.new_position %></td>
                 </tr>
                 <tr>
                   <th scope="row">所属チーム</th>
@@ -92,7 +92,7 @@
                 </tr>
                 <tr>
                   <th scope="row">活動地域</th>
-                  <td><%= @user.active_area %></td>
+                  <td><%= @user.new_active_area %></td>
                 </tr>
                 <tr>
                   <th scope="row">誕生日</th>
@@ -111,7 +111,7 @@
                 <tr>
                   <th scope="row"><%= link_to "フォロワー", followers_user_path(@user) %></th>
                   <td><%= @user.followers.count %></td>
-                </tr
+                </tr>
               </tbody>
             </table>
           </div>
@@ -126,12 +126,12 @@
                 <th>捕球</th>
               </tr>
               <tr>
-                <td><%= @user.meet %></td>
-                <td><%= @user.power %></td>
-                <td><%= @user.run_speed %></td>
-                <td><%= @user.arm %></td>
-                <td><%= @user.defense %></td>
-                <td><%= @user.catch %></td>
+                <td><%= @user.new_meet %></td>
+                <td><%= @user.new_power %></td>
+                <td><%= @user.new_run_speed %></td>
+                <td><%= @user.new_arm %></td>
+                <td><%= @user.new_defense %></td>
+                <td><%= @user.new_catch %></td>
               </tr>
             </table>
             <br>
@@ -146,8 +146,8 @@
               </tr>
               <tr>
                 <td><%= @user.ball_speed %>km/h</td>
-                <td><%= @user.control %></td>
-                <td><%= @user.stamina %></td>
+                <td><%= @user.new_control %></td>
+                <td><%= @user.new_stamina %></td>
               </tr>
             </table>
           </div>
@@ -244,7 +244,12 @@
           label: "野手能力",
           backgroundColor: 'rgba(102,255,129,0.2)',
           borderColor: 'rgba(122,255,129,0.2)',
-          data: [8, 2, 5, 3, 7, 6]
+          data: [<%= @user.new_meet_before_type_cast %>,
+                 <%= @user.new_power_before_type_cast %>,
+                 <%= @user.new_run_speed_before_type_cast %>,
+                 <%= @user.new_arm_before_type_cast %>,
+                 <%= @user.new_defense_before_type_cast %>,
+                 <%= @user.new_catch_before_type_cast %>]
           }
       ]
     },
