@@ -4,7 +4,6 @@ class Users::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-
     # 通算成績算出用
     @posts = @user.posts.page(params[:page]).per(5).order(id: "DESC")
 
@@ -108,8 +107,8 @@ class Users::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :birthday, :profile_image, :introduction, :active_area, :email, :team, :position,
-                                  :meet, :power, :run_speed, :arm, :defense, :catch, :ball_speed, :control, :stamina)
+    params.require(:user).permit(:name, :birthday, :profile_image, :introduction, :new_active_area, :email, :team, :new_position,
+                                  :new_meet, :new_power, :new_run_speed, :new_arm, :new_defense, :new_catch, :ball_speed, :new_control, :new_stamina)
   end
 
   def ensure_correct_user
