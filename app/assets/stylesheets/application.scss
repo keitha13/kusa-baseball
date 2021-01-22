@@ -98,3 +98,13 @@ nav.pagination {
   background-color: #87ceeb;
 }
 
+#back {
+  position: fixed;
+  right: 20px;
+  bottom: 50px;
+}
+
+#back img {
+  width: 50px;
+  opacity: 0.5;
+}
