@@ -28,8 +28,16 @@
     </div>
     <%= f.submit "選手登録", class: "btn btn-primary btn-lg btn-block" %>
   <% end %>
+  <br>
   <%= render "users/shared/links" %>
+  <br>
   <%= link_to user_google_oauth2_omniauth_authorize_path do %><% end %>
 </div>
 
-<%= render "users/homes/footer" %>
+<footer class="text-muted">
+  <div class="container">
+    <p class="text-center">
+      ©2020 kusa-baseball.site
+    </p>
+  </div>
+</footer>
