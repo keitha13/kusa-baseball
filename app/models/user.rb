@@ -5,7 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :timeoutable,
          :omniauthable, omniauth_providers: %i(google_oauth2)
 
-  validates :name, presence: true
+  validates :name, length: { minimum: 2, maximum: 20 }
+  validates :email, uniqueness: true
+  validates :introduction, length: { maximum: 100 }
 
   has_many :posts, dependent: :destroy
   has_many :post_comments, dependent: :destroy
@@ -38,10 +40,6 @@ class User < ApplicationRecord
     ピッチャー: 1, キャッチャー: 2, ファースト: 3, セカンド: 4, サード: 5, ショート: 6, レフト: 7,
     センター: 8, ライト: 9
   }
-
-  # enum skill: {
-  #   G: 1, F: 2, E: 3, D: 4, C: 5, B: 6, A: 7, S: 8
-  # }
 
   enum new_meet: {
     G: 1, F: 2, E: 3, D: 4, C: 5, B: 6, A: 7, S: 8
