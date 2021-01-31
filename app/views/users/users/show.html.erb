@@ -59,7 +59,7 @@
           <% end %>
 
           <p><%= link_to "編集する", edit_user_path, class: "btn btn-primary col-md-12" %></p>
-          <p><%= link_to "退会する", quit_users_path, class: "btn btn-danger col-md-12 my-3" %></p>
+          <p><%= link_to "退会する", quit_users_path, class: "btn btn-outline-danger col-md-12 my-3" %></p>
         <% end %>
       </div>
 
@@ -154,7 +154,7 @@
         </div>
       </div>
 
-      <h3>通算打者成績　打率：<%= @ave.round(3) %></h3>
+      <h3>通算打者成績　<% unless @ave.nan? %>打率：<%= @ave.round(3) %><% end %></h3>
       <table class="table table-bordered table-condensed">
         <tr>
           <th>打数</th>
@@ -179,7 +179,7 @@
           <td><%= @total_steal %></td>
         </tr>
       </table>
-      <h3>通算投手成績　防御率：<%= @era.round(2) %></h3>
+      <h3>通算投手成績　<% unless @era.nan? %>防御率：<%= @era.round(2) %><% end %></h3>
       <table class="table table-bordered table-condensed mb-5">
         <tr>
           <th>投球回</th>

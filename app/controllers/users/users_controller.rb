@@ -4,9 +4,9 @@ class Users::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    # 通算成績算出用
     @posts = @user.posts.page(params[:page]).per(5).order(id: "DESC")
 
+    # 通算成績算出用
     @total_AB = @posts.sum(:AB)
     @total_single = @posts.sum(:single)
     @total_double = @posts.sum(:double)
