@@ -98,7 +98,7 @@
             <td><%= f.text_field :team_against, class: "team_against" %></td>
             <td><%= f.number_field :score_my_team, class: "score_my_team", min: 0, placeholder: "自チーム" %></td>
             <td><%= f.number_field :score_team_against, class: "score_team_against", min: 0, placeholder: "相手チーム" %></td>
-            <td><%= f.date_select :date, class: "date" %></td>
+            <td><%= f.date_select :date, end_year: (Time.now.year), class: "date" %></td>
           </tr>
         </table>
       </div>

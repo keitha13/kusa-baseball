@@ -9,6 +9,10 @@
         </div>
       <% end %>
 
+      <h5 class="mb-5">
+        総投稿数：<%= @post_count.count %>
+      </h5>
+
       <div class="jscroll posts">
         <% @posts.each do |post| %>
           <div class="card mb-4">
@@ -26,9 +30,12 @@
                 <%= simple_format(post.body) %>
               </p>
               <div class="row align-items-center">
-                <div class="far fa-comment col-md-4 col-4 text-center"><%= post.post_comments.count %></div>
-                <div class="far col-md-4 col-4 text-center fa-heart"><%= post.favorites.count %></div>
-                <div class="col-md-4 col-4 text-center"><%= link_to "詳細", post_path(post), class: "btn btn-outline-primary" %></div>
+                <div class="far fa-comment col-3 text-center"><%= post.post_comments.count %></div>
+                <div class="far col-3 text-center fa-heart"><%= post.favorites.count %></div>
+                <div class="col-3 text-center"><%= link_to "詳細", admins_post_path(post), class: "btn btn-outline-primary" %></div>
+                <% if admin_signed_in? %>
+                  <div class="col-3 text-center"><%= link_to "削除", admins_post_path(post), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn btn-outline-danger" %></div>
+                <% end %>
               </div>
             </div>
           </div>
