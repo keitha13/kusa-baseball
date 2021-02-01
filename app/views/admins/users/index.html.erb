@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col-10 offset-1 mt-5" id="main">
+      <h2 class="my-5">選手一覧</h2>
+      <table class="table table-inverse">
+        <thead>
+          <tr>
+            <th>会員ID</th>
+            <th>名前</th>
+            <th>メールアドレス</th>
+            <th>ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td>
+                <%= user.id %>
+              </td>
+              <td>
+                <%= user.name %>
+              </td>
+              <td>
+                <%= user.email %>
+              </td>
+              <td>
+                <% if user.is_active == true %>
+                  <p>有効会員</p>
+                <% else %>
+                  <p>退会済み</p>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <%= paginate @users %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
