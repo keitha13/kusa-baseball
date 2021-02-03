@@ -1,4 +1,5 @@
 class Admins::PostsController < ApplicationController
+  before_action :authenticate_admins!
 
   def index
     @posts = Post.page(params[:page]).per(5).order(id: "DESC")
