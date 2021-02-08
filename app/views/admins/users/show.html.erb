@@ -1,0 +1,189 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-10 offset-1 mt-5" id="main">
+      <div class="card mb-4 border-0 ">
+        <div class="card-body text-center">
+          <div class="card-text">
+            <%= attachment_image_tag(@user, :profile_image, fallback: "no-image.png", size: "150x150") %>
+          </div>
+          <h3 class="card-title"><%= @user.name %></h3>
+          <p class="card-text">
+            <small class="text-muted"><%= @user.created_at.strftime('%Y/%m/%-d') %>に選手登録</small>
+          </p>
+          <p class="card-text">
+            <%= simple_format(@user.introduction) %>
+          </p>
+        </div>
+      </div>
+      <div class="card border-0 col-6 offset-3">
+        <% if flash[:notice] %>
+          <div class="alert alert-danger" role="alert">
+            <%= notice %>
+          </div>
+        <% end %>
+        <p><%= link_to "編集する", edit_user_path, class: "btn btn-primary col-md-12" %></p>
+        <p><%= link_to "退会させる", quit_users_path, class: "btn btn-outline-danger col-md-12 my-3" %></p>
+      </div>
+
+      <div class="my-5">
+
+        <ul class="nav nav-tabs justify-content-center nav-pills">
+          <li class="nav-item">
+            <a href="#profile" class="nav-link active" data-toggle="tab">プロフィール</a>
+          </li>
+          <li class="nav-item">
+            <a href="#fielder" class="nav-link" data-toggle="tab">野手能力</a>
+          </li>
+          <li class="nav-item">
+            <a href="#pitcher" class="nav-link" data-toggle="tab">投手能力</a>
+          </li>
+        </ul>
+
+        <div class="tab-content my-5">
+          <div id="profile" class="tab-pane active fade show">
+
+            <table class="table table-borderless">
+              <tbody class="text-center">
+                <tr>
+                  <th scope="row">ポジション</th>
+                  <td><%= @user.new_position %></td>
+                </tr>
+                <tr>
+                  <th scope="row">所属チーム</th>
+                  <td><%= @user.team %></td>
+                </tr>
+                <tr>
+                  <th scope="row">活動地域</th>
+                  <td><%= @user.new_active_area %></td>
+                </tr>
+                <tr>
+                  <th scope="row">誕生日</th>
+                  <td><%= @user.birthday %></td>
+                </tr>
+                <tr>
+                  <th scope="row">Email</th>
+                  <td><%= @user.email %></td>
+                </tr>
+                <tr>
+                  <th scope="row"><%= link_to "フォロー", followings_user_path(@user) %></th>
+                  <td><%= @user.followings.count %></td>
+                </tr>
+                <tr>
+                  <th scope="row"><%= link_to "フォロワー", followers_user_path(@user) %></th>
+                  <td><%= @user.followers.count %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="fielder" class="tab-pane fade">
+            <table class="table table-borderless table-sm text-center col-8 offset-2">
+              <tr>
+                <th>ミート</th>
+                <th>パワー</th>
+                <th>走力</th>
+                <th>肩力</th>
+                <th>守備</th>
+                <th>捕球</th>
+              </tr>
+              <tr>
+                <td><%= @user.new_meet %></td>
+                <td><%= @user.new_power %></td>
+                <td><%= @user.new_run_speed %></td>
+                <td><%= @user.new_arm %></td>
+                <td><%= @user.new_defense %></td>
+                <td><%= @user.new_catch %></td>
+              </tr>
+            </table>
+          </div>
+          <div id="pitcher" class="tab-pane fade">
+            <table class="table table-borderless table-sm text-center col-8 offset-2">
+              <tr>
+                <th>球速</th>
+                <th>コントロール</th>
+                <th>スタミナ</th>
+              </tr>
+              <tr>
+                <td><%= @user.ball_speed %>km/h</td>
+                <td><%= @user.new_control %></td>
+                <td><%= @user.new_stamina %></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="col-8 offset-2">通算打者成績　<% unless @ave.nan? %>打率：<%= @ave.round(3) %><% end %></h3>
+      <table class="table table-bordered table-condensed col-8 offset-2">
+        <tr>
+          <th>打数</th>
+          <th>単打</th>
+          <th>二塁打</th>
+          <th>三塁打</th>
+          <th>本塁打</th>
+          <th>打点</th>
+          <th>得点</th>
+          <th>四死球</th>
+          <th>盗塁</th>
+        </tr>
+        <tr>
+          <td><%= @total_AB %></td>
+          <td><%= @total_single %></td>
+          <td><%= @total_double %></td>
+          <td><%= @total_triple %></td>
+          <td><%= @total_HR %></td>
+          <td><%= @total_RBI %></td>
+          <td><%= @total_run %></td>
+          <td><%= @total_BB_HBP %></td>
+          <td><%= @total_steal %></td>
+        </tr>
+      </table>
+      <h3 class="col-8 offset-2">通算投手成績　<% unless @era.nan? %>防御率：<%= @era.round(2) %><% end %></h3>
+      <table class="table table-bordered table-condensed mb-5 col-8 offset-2">
+        <tr>
+          <th>投球回</th>
+          <th>被安打</th>
+          <th>失点</th>
+          <th>奪三振</th>
+          <th>与四死球</th>
+        </tr>
+        <tr>
+          <td><%= @total_inning %></td>
+          <td><%= @total_hit_allowed %></td>
+          <td><%= @total_run_allowed %></td>
+          <td><%= @total_SO %></td>
+          <td><%= @total_BB_HBP_allowed %></td>
+        </tr>
+      </table>
+
+      <div class="jscroll posts my-5">
+        <% @posts.each do |post| %>
+          <div class="card mb-4 col-8 offset-2">
+            <div class="card-body">
+              <%= link_to user_path(post.user) do %>
+                <div class="row align-items-center">
+                  <%= attachment_image_tag(post.user, :profile_image, fallback: "no-image.png", size: "50x50") %>
+                  <h5><%= post.user.name %></h5>
+                </div>
+              <% end %>
+              <p class="card-text">
+                <small class="text-muted"><%= post.created_at.strftime('%Y/%m/%-d/%R') %></small>
+              </p>
+              <p class="card-text">
+                <%= simple_format(post.body) %>
+              </p>
+              <div class="row align-items-center">
+                <div class="far fa-comment col-4 text-center"><%= post.post_comments.count %></div>
+                  <div class="col-4 text-center" id="favorite-<%= post.id %>">
+                    <%= render partial: "users/favorites/favorite", locals: {post: post} %>
+                  </div>
+                <div class="col-4 text-center"><%= link_to "詳細", post_path(post), class: "btn btn-outline-primary" %></div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <%= paginate @posts %>
+      </div>
+    </div>
+
+  </div>
+</div>

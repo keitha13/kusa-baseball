@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe '投稿のテスト', type: :system do
+describe '投稿のテスト' do
   let(:user) { create(:user) }
   let!(:user2) { create(:user) }
   let!(:post) { create(:post, user: user) }
