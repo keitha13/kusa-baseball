@@ -25,6 +25,25 @@ describe '投稿のテスト' do
       it '新規投稿と表示される' do
         expect(page).to have_content('新規投稿')
       end
+      it 'コメントフォームが表示される' do
+		  	expect(page).to have_field 'post[body]'
+		  end
+		  it 'youtubeフォームが表示される' do
+		  	expect(page).to have_field 'post[youtube_url]'
+		  end
+      it '投稿するボタンが表示される' do
+        expect(page).to have_button '投稿する'
+      end
+      it '投稿に成功する' do
+		  	fill_in 'post[body]', with: Faker::Lorem.characters(number:20)
+		  	click_button '投稿する'
+		  	expect(page).to have_content '投稿に成功しました'
+		  end
+		  it '投稿に失敗する' do
+		  	click_button '投稿する'
+		  	expect(page).to have_content '1文字以上で入力してください'
+		  	expect(current_path).to eq('/posts')
+		  end
     end
   end
 end
