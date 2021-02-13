@@ -74,5 +74,19 @@ describe '投稿のテスト' do
 		  	expect(page).to have_field 'post[youtube_url]', with: post.youtube_url
 		  end
     end
+    context 'フォームの確認' do
+			it '編集に成功する' do
+				visit edit_post_path(post)
+				click_button '更新して投稿する'
+				expect(current_path).to eq '/posts'
+			end
+			it '編集に失敗する' do
+				visit edit_post_path(post)
+				fill_in 'post[body]', with: ''
+				click_button '更新して投稿する'
+				expect(page).to have_content '1文字以上で入力してください'
+				expect(current_path).to eq '/posts/' + post.id.to_s
+			end
+		end
   end
 end
